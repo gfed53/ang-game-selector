@@ -1,7 +1,6 @@
 <h2>Let's get started..</h2>
-<button>Click Here to Start!</button>
 <section id="questions">
-	<form ng-submit="questions.submit()">
+	<form ng-submit="questions.submit(questions.genre, questions.yearRange)">
 		<label for="">What Genre?</label>
 		<input type="text" ng-model="questions.genre">
 		<label for="">What Decade?</label>

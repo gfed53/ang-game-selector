@@ -1,12 +1,10 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames){
+	function QuestionsCtrl(agsGames, agsSeeker){
 		var vm = this;
-		// vm.genre
-		//vm.yearRange
 		vm.obj;
 		vm.set = set;
 		vm.submit = submit;
@@ -14,29 +12,13 @@
 		agsGames().get()
 		.then(function(results){
 			vm.list = results.data;
-			console.log(vm.list);
+			// console.log(vm.list);
 		});
 
 		function GameChoice(genre, yearRange){
 			this.genre = genre;
 			this.yearRange = yearRange;
 		};
-
-		function Seeker(){
-			this.seek = seek;
-
-			function seek(choice, list){
-				// console.log(choice);
-				// console.log(list);
-				var selection = [];
-				for(var i=0; i<list.length; i++){
-					if(list[i].genre === choice.genre && choice.yearRange[0] <= list[i].releaseYear && list[i].releaseYear < choice.yearRange[1]){
-						selection.push(list[i]);
-					}
-				}
-				return selection;
-			}
-		}
 
 		var current = new GameChoice('RPG', [1981,1990]);
 
@@ -48,7 +30,7 @@
 
 		function submit(genre, _yearRange_){
 			vm.set(genre, _yearRange_);
-			vm.seeker = new Seeker();
+			vm.seeker = new agsSeeker();
 			vm.selection = vm.seeker.seek(vm.obj, vm.list);
 			console.log(vm.selection);
 		}

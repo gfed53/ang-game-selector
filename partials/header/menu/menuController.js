@@ -4,6 +4,6 @@
 	.controller('MenuCtrl', [MenuCtrl])
 
 	function MenuCtrl(){
-		console.log('menu');
+		// console.log('menu');
 	}
 })();

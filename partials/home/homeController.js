@@ -4,6 +4,6 @@
 	.controller('HomeCtrl', [HomeCtrl])
 
 	function HomeCtrl(){
-		console.log('Home');
+		// console.log('Home');
 	}
 })();

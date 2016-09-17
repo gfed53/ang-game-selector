@@ -10,10 +10,11 @@
 		vm.obj;
 		vm.set = set;
 		vm.submit = submit;
+
 		agsGames().get()
 		.then(function(results){
-			vm.results = results.data;
-			console.log(vm.results);
+			vm.list = results.data;
+			console.log(vm.list);
 		});
 
 		function GameChoice(genre, yearRange){
@@ -25,12 +26,11 @@
 			this.seek = seek;
 
 			function seek(choice, list){
-				console.log(choice);
-				console.log(list);
+				// console.log(choice);
+				// console.log(list);
 				var selection = [];
 				for(var i=0; i<list.length; i++){
-					console.log(list[i]);
-					if(list[i].genre === choice.genre && choice.yearRange[0] <= list[i].releaseYear < choice.yearRange[1]){
+					if(list[i].genre === choice.genre && choice.yearRange[0] <= list[i].releaseYear && list[i].releaseYear < choice.yearRange[1]){
 						selection.push(list[i]);
 					}
 				}
@@ -43,13 +43,13 @@
 		function set(genre, _yearRange_){
 			yearRange = JSON.parse(_yearRange_);
 			vm.obj = new GameChoice(genre, yearRange);
-			console.log(vm.obj);
+			// console.log(vm.obj);
 		}
 
 		function submit(genre, _yearRange_){
 			vm.set(genre, _yearRange_);
 			vm.seeker = new Seeker();
-			vm.selection = vm.seeker.seek(vm.obj, vm.results);
+			vm.selection = vm.seeker.seek(vm.obj, vm.list);
 			console.log(vm.selection);
 		}
 	}

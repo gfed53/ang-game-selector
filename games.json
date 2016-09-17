@@ -1,23 +1,23 @@
 [
 {
 	"name": "Final Fantasy III",
-	"genre": "RPG",
+	"genre": "rpg",
 	"releaseYear": 1990
 },{
 	"name": "Samurai Showdown",
-	"genre": "Fighting",
+	"genre": "fighting",
 	"releaseYear": 1993
 },{
 	"name": "Half Life 2",
-	"genre": "FPS",
+	"genre": "fps",
 	"releaseYear": 2004
 },{
 	"name": "System Shock",
-	"genre": "Action RPG",
+	"genre": "aRpg",
 	"releaseYear": 1994
 },{
 	"name": "Super Mario Land",
-	"genre": "Platformer",
+	"genre": "platformer",
 	"releaseYear": 1989
 }
 ]

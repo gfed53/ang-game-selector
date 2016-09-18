@@ -1,4 +1,4 @@
 (function(){
 	angular
-	.module('myApp', ['ngAnimate', 'ui.router']);
+	.module('myApp', ['ngAnimate', 'ui.router', 'ngMaterial']);
 })();

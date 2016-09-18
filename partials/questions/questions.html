@@ -1,7 +1,7 @@
 <h2>Let's get started..</h2>
 <section id="questions" ng-if="questions.list">
 	<form ng-submit="questions.submit(questions.genre, questions.yearRange)">
-		<label for="">What Genre?</label>
+		<label>What Genre?</label>
 		<select ng-model="questions.genre">
 			<option value="aRpg">Action RPG</option>
 			<option value="fighting">Fighting</option>
@@ -17,7 +17,6 @@
 			<option value="[2001,2010]">2000's</option>
 			<option value="[2011,2019]">2010's</option>
 		</select>
-		<pre>{{ questions.yearRange }}</pre>
-		<input type="submit" value="Set">
+		<input class="md-button md-raised" type="submit" value="Go!">
 	</form>
 </section>

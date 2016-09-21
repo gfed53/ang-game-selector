@@ -1,9 +1,9 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames, agsSeeker){
+	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
@@ -14,6 +14,11 @@
 			vm.list = results.data;
 			// console.log(vm.list);
 		});
+
+		agsGiantBombAPI().get()
+		.then(function(results){
+			vm.game = results;
+		})
 
 		function GameChoice(genre, yearRange){
 			this.genre = genre;

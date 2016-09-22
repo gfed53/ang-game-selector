@@ -1,23 +1,22 @@
-<h2>Let's get started..</h2>
-<md-content id="questions" ng-if="questions.list">
-	<form ng-submit="questions.submit(questions.genre, questions.yearRange)">
-		<label>What Genre?</label>
-		<select ng-model="questions.genre">
-			<option value="aRpg">Action RPG</option>
-			<option value="fighting">Fighting</option>
-			<option value="fps">FPS(First Person Shooter)</option>
-			<option value="platformer">Platformer</option>
-			<option value="rpg">RPG(Role Playing Game)</option>
-		</select>
-		<label for="">What Decade?</label>
-		<select ng-model="questions.yearRange">
-			<option value="[1951,2019]">Any</option>
-			<option value="[1971,1980]">1970's</option>
-			<option value="[1981,1990]">1980's</option>
-			<option value="[1991,2000]">1990's</option>
-			<option value="[2001,2010]">2000's</option>
-			<option value="[2011,2019]">2010's</option>
-		</select>
-		<input class="md-button md-raised" type="submit" value="Go!">
-	</form>
-</md-content>
+<section id="questions">
+	<h2>Let's get started..</h2>
+	<md-content id="questions" ng-if="questions.list">
+		<form layout="row" layout-xs="column" layout-align="center" ng-submit="questions.submit(questions.genre, questions.yearRange)">
+		<md-input-container flex>	
+				<label>What Genre?</label>
+				<md-select ng-model="questions.genre">
+					<md-option ng-value="genre" ng-repeat="genre in questions.genres">{{ genre.label }}</md-option>
+				</md-select>
+			</md-input-container>
+			<md-input-container flex>
+				<label>What Decade?</label>
+				<md-select ng-model="questions.yearRange">
+					<md-option ng-value="decade" ng-repeat="decade in questions.decades">{{ decade.label }}</md-option>
+				</md-select>
+			</md-input-container>
+			<md-input-container flex>
+				<input class="md-button md-raised" type="submit" value="Go!">
+			</md-input-container>
+		</form>
+	</md-content>
+</section>

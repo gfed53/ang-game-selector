@@ -4,6 +4,7 @@
 	.factory('agsGames', ['$http', '$q', 'AGS_GAMES_JSON_FILE', agsGames])
 	.factory('agsSeeker', agsSeeker)
 	.factory('agsGiantBombAPI', ['$http', '$q', agsGiantBombAPI])
+	.factory('agsSearchOptions', agsSearchOptions)
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -56,7 +57,7 @@
 				var params = {
 					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
 					format: 'json',
-					query: 'metroid',
+					query: 'metroid', //example for now
 					resources: 'game'
 				};
 				return $http({
@@ -72,6 +73,73 @@
 		}
 	}
 
+	function agsSearchOptions(){
+		return function(){
+			var genres = [
+			{
+				value: 'aRpg',
+				label: 'Action RPG' 
+			},
+			{
+				value: 'fighting',
+				label: 'Fighting'
+			},
+			{
+				value: 'fps',
+				label: 'First Person Shooter'
+			},
+			{
+				value: 'platformer',
+				label: 'Platformer'
+			},
+			{
+				value: 'rpg',
+				label: 'Role Playing Game'
+			}
+			],
+			decades = [
+			{
+				value: [1951,2019],
+				label: 'Any'
+			},
+			{
+				value: [1971,1980],
+				label: '1970\'s'
+			},
+			{
+				value: [1981,1990],
+				label: '1980\'s'
+			},
+			{
+				value: [1991,2000],
+				label: '1990\'s'
+			},
+			{
+				value: [2001,2010],
+				label: '2000\'s'
+			},
+			{
+				value: [2010,2019],
+				label: '2010\'s'
+			}
+			];
+
+			function getGenres(){
+				return genres;
+			}
+
+			function getDecades(){
+				return decades;
+			}
+
+			var services = {
+				getGenres: getGenres,
+				getDecades: getDecades
+			};
+
+			return services;
+		}
+	}
 
 
 })();

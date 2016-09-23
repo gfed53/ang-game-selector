@@ -10,6 +10,7 @@
 		vm.submit = submit;
 		vm.genres = agsSearchOptions().getGenres();
 		vm.decades = agsSearchOptions().getDecades();
+		console.log(vm.decades);
 
 		vm.genre = vm.genres[0];
 		vm.yearRange = vm.decades[0];
@@ -33,8 +34,9 @@
 		var current = new GameChoice('RPG', [1981,1990]);
 
 		function set(genre, _yearRange_){
-			yearRange = JSON.parse(_yearRange_);
-			vm.obj = new GameChoice(genre, yearRange);
+			console.log(_yearRange_);
+			// yearRange = JSON.parse(_yearRange_);
+			vm.obj = new GameChoice(genre, _yearRange_);
 			// console.log(vm.obj);
 		}
 

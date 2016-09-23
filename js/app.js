@@ -4,6 +4,5 @@
 
 	.config(['$httpProvider', function($httpProvider){
 		$httpProvider.defaults.useXDomain = true;
-		console.log($httpProvider.defaults.headers);
 	}]);
 })();

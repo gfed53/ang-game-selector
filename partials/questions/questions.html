@@ -1,21 +1,23 @@
 <section id="questions">
 	<h2>Let's get started..</h2>
 	<md-content id="questions" ng-if="questions.list">
-		<form layout="row" layout-xs="column" layout-align="center" ng-submit="questions.submit(questions.genre, questions.yearRange)">
-		<md-input-container flex>	
+		<form layout="row" layout-xs="column" layout-align="center" ng-submit="questions.submit(questions.genre.value, questions.yearRange.value)">
+		<md-input-container flex-gt-xs="35" flex>	
 				<label>What Genre?</label>
 				<md-select ng-model="questions.genre">
 					<md-option ng-value="genre" ng-repeat="genre in questions.genres">{{ genre.label }}</md-option>
 				</md-select>
 			</md-input-container>
-			<md-input-container flex>
+			<!-- <pre>{{ questions.genre.value }}</pre> -->
+			<md-input-container flex-gt-xs="35" flex>
 				<label>What Decade?</label>
 				<md-select ng-model="questions.yearRange">
 					<md-option ng-value="decade" ng-repeat="decade in questions.decades">{{ decade.label }}</md-option>
 				</md-select>
 			</md-input-container>
-			<md-input-container flex>
-				<input class="md-button md-raised" type="submit" value="Go!">
+			<!-- <pre>{{ questions.yearRange.value }}</pre> -->
+			<md-input-container flex-gt-xs="20" flex="50" flex-offset-xs="30">
+				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
 			</md-input-container>
 		</form>
 	</md-content>

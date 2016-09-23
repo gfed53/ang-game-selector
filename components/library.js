@@ -33,7 +33,7 @@
 				// console.log(list);
 				var selection = [];
 				for(var i=0; i<list.length; i++){
-					if((list[i].genre === choice.genre || !choice.genre) && choice.yearRange[0] <= list[i].releaseYear && list[i].releaseYear < choice.yearRange[1]){
+					if((list[i].genre === choice.genre || !choice.genre) && choice.yearRange[0] <= list[i].releaseYear && list[i].releaseYear <= choice.yearRange[1]){
 						selection.push(list[i]);
 					}
 				}

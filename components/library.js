@@ -149,7 +149,15 @@
 			}
 
 			function get(array){
-				return array[Math.floor(Math.random()*array.length)];
+				if(array.length === 0){
+					var error = {
+						error: true
+					};
+
+					return error;
+				} else {
+					return array[Math.floor(Math.random()*array.length)];
+				}	
 				// alert(game+"!");
 				// console.log(game);
 			}

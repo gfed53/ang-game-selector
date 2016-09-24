@@ -21,4 +21,9 @@
 			</md-input-container>
 		</form>
 	</md-content>
+	<md-content ng-if="questions.game">
+		<p>Let's play...</p>
+		<h2>{{ questions.game.name }}</h2>
+		<p>{{ questions.game.releaseYear }}</p>
+	</md-content>
 </section>

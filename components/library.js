@@ -5,6 +5,7 @@
 	.factory('agsSeeker', agsSeeker)
 	.factory('agsGiantBombAPI', ['$http', '$q', agsGiantBombAPI])
 	.factory('agsSearchOptions', agsSearchOptions)
+	.factory('agsSelectRand', agsSelectRand)
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -138,6 +139,23 @@
 			};
 
 			return services;
+		}
+	}
+
+	function agsSelectRand(){
+		return function(){
+			var services = {
+				get: get
+			}
+
+			function get(array){
+				return array[Math.floor(Math.random()*array.length)];
+				// alert(game+"!");
+				// console.log(game);
+			}
+
+			return services;
+
 		}
 	}
 

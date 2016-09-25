@@ -23,8 +23,8 @@
 
 		// agsGiantBombAPI().get()
 		// .then(function(results){
-		// 	vm.game = results;
-		// })
+		// 	vm.gbGames = results;
+		// });
 
 		function GameChoice(genre, yearRange){
 			this.genre = genre;

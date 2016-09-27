@@ -6,6 +6,7 @@
 	.factory('agsGiantBombAPI', ['$http', '$q', agsGiantBombAPI])
 	.factory('agsSearchOptions', agsSearchOptions)
 	.factory('agsSelectRand', agsSelectRand)
+	.factory('agsModifyDates', agsModifyDates)
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -207,6 +208,20 @@
 
 			return services;
 
+		}
+	}
+
+	function agsModifyDates(){
+		return function(list){
+			var updated = [];
+			list.forEach(function(current,index,array){
+				var date = moment(current.original_release_date, 'YYYY-MM-DD HH:mm:ss').format();
+				current.original_release_date = date;
+				// console.log(current);
+				updated.push(current);
+			})
+
+			return updated;
 		}
 	}
 

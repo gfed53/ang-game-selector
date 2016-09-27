@@ -1,9 +1,9 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand){
+	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
@@ -14,12 +14,6 @@
 
 		vm.genre = vm.genres[0];
 		vm.yearRange = vm.decades[0];
-
-		// agsGames().get()
-		// .then(function(results){
-		// 	vm.list = results.data;
-		// 	// console.log(vm.list);
-		// });
 
 		var examp = moment('2016-09-11T04:00:00.000Z');
 		examp = examp.format('YYYY-MM-DD HH:mm:ss');
@@ -66,6 +60,7 @@
 			.then(function(results){
 				vm.isLoading = false;
 				vm.gbGames = results.data.results;
+				vm.gbGames = agsModifyDates(vm.gbGames);
 				console.log(vm.gbGames);			
 				vm.game = agsSelectRand().get(vm.gbGames);
 				console.log(vm.game);

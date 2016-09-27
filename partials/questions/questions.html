@@ -1,39 +1,27 @@
 <section id="questions">
-	<h2>Let's get started..</h2>
-	<md-content id="questions">
+	<h2>Select a range..</h2>
+	<p>Narrow down your result to a game from a certain time period.</p>
+	<div id="questions">
 		<form layout="row" layout-xs="column" layout-align="center" ng-submit="questions.submit(questions.after, questions.before)">
-		<md-input-container flex-gt-xs="35" flex>	
-				<label>What Genre?</label>
-				<md-select ng-model="questions.genre">
-					<md-option ng-value="genre" ng-repeat="genre in questions.genres">{{ genre.label }}</md-option>
-				</md-select>
-			</md-input-container>
-			<!-- <pre>{{ questions.genre.value }}</pre> -->
-			<md-input-container flex-gt-xs="16" flex>
+			<md-input-container flex-gt-xs="20" flex>
 				<label>From..</label>
 				<md-datepicker ng-model="questions.after"></md-datepicker>
-				<!-- <pre>{{ questions.after }}</pre> -->
-				
-				<!-- <md-select ng-model="questions.yearRange">
-					<md-option ng-value="decade" ng-repeat="decade in questions.decades">{{ decade.label }}</md-option>
-				</md-select> -->
 			</md-input-container>
-			<md-input-container flex-gt-xs="16" flex>
+			<md-input-container flex-gt-xs="20" flex>
 				<label>To..</label>
 				<md-datepicker ng-model="questions.before"></md-datepicker>
 			</md-input-container>
-			<!-- <pre>{{ questions.before }}</pre> -->
-			<!-- <pre>{{ questions.yearRange.value }}</pre> -->
 			<md-input-container flex-gt-xs="20" flex="50" flex-offset-xs="30">
 				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
 			</md-input-container>
 		</form>
-	</md-content>
+	</div>
 	<md-content ng-if="questions.game.name">
 		<p>Let's play...</p>
 		<h2>{{ questions.game.name }}</h2>
-		<p>Released: {{ questions.game.original_release_date | date : 'short' }}</p>
+		<p>Released: {{ questions.game.original_release_date | date : 'M/d/yy' }}</p>
 		<p>{{ questions.game.deck }}</p>
+		<p>Find out more <a target="_blank" href="{{ questions.game.site_detail_url }}">here</a>!</p>
 	</md-content>
 	<md-content ng-if="questions.game.error">
 		<h2>Whoops!</h2>

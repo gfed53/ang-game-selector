@@ -48,7 +48,9 @@
 	function agsGiantBombAPI($http, $q){
 		return function(){
 			var services = {
-				get: get
+				get: get,
+				getGames: getGames,
+				getGame: getGame
 			};
 
 			return services;
@@ -71,7 +73,48 @@
 					return $q.when(results);
 				});
 			}
-		}
+
+			function getGames(after, before){
+				var url = 'http://www.giantbomb.com/api/games';
+				var params = {
+					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
+					format: 'json',
+					filter: 'original_release_date:'+after+'|'+before,
+					sort: 'number_of_user_reviews:desc'
+				};
+				return $http({
+					method: 'GET',
+					url: url,
+					params: params
+				})
+				.then(function(results){
+					console.log(results);
+					return $q.when(results);
+				});
+			}
+
+			function get2(url, params){
+				return $http({
+					method: 'GET',
+					url: url,
+					params: params
+				})
+				.then(function(results){
+					console.log(results);
+					return $q.when(results);
+				});
+			}
+
+			function getGame(){
+				var url = 'http://www.giantbomb.com/api/game',
+				params = {
+					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
+					format: 'json',
+					name: 'Street Fighter'
+				}
+				return get2(url, params);
+			}
+		};
 	}
 
 	function agsSearchOptions(){
@@ -149,7 +192,7 @@
 			}
 
 			function get(array){
-				if(array.length === 0){
+				if(!array || array.length === 0){
 					var error = {
 						error: true
 					};

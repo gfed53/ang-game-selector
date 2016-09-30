@@ -25,19 +25,20 @@
 		// 	vm.gbGames = results;
 		// });
 
-		function GameChoice(after, before){
+		function GameChoice(after, before, platforms){
 			// this.genre = genre;
 			this.after = after;
 			this.before = before;
+			this.platforms = platforms;
 		};
 
 		var current = new GameChoice('RPG', [1981,1990]);
 
-		function set(_after_, _before_){
+		function set(_after_, _before_, platforms){
 			var after = moment(_after_).format('YYYY-MM-DD HH:mm:ss');
 			var before = moment(_before_).format('YYYY-MM-DD HH:mm:ss');
 
-			vm.obj = new GameChoice(after, before);
+			vm.obj = new GameChoice(after, before, platforms);
 			// console.log(vm.obj);
 		}
 
@@ -53,10 +54,10 @@
 		// 	console.log(vm.game);
 		// }
 
-		function submit(after, before){
-			vm.set(after, before);
+		function submit(after, before, platforms){
+			vm.set(after, before, platforms);
 			vm.isLoading = true;
-			agsGiantBombAPI().getGames(vm.obj.after, vm.obj.before)
+			agsGiantBombAPI().getGames(vm.obj.after, vm.obj.before, vm.obj.platforms)
 			.then(function(results){
 				vm.isLoading = false;
 				vm.gbGames = results.data.results;

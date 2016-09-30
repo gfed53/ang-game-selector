@@ -1,8 +1,8 @@
 <section id="questions">
 	<h2>Select a range..</h2>
 	<p>Narrow down your result to a game from a certain time period.</p>
-	<div id="questions">
-		<form layout="row" layout-xs="column" layout-align="center" ng-submit="questions.submit(questions.after, questions.before)">
+	<div id="question-date-range">
+		<form layout="row" layout-xs="column" layout-align="center">
 			<md-input-container flex-gt-xs="20" flex>
 				<label>From..</label>
 				<md-datepicker ng-model="questions.after"></md-datepicker>
@@ -11,11 +11,28 @@
 				<label>To..</label>
 				<md-datepicker ng-model="questions.before"></md-datepicker>
 			</md-input-container>
-			<md-input-container flex-gt-xs="20" flex="50" flex-offset-xs="30">
+			<!-- <md-input-container flex-gt-xs="20" flex="50" flex-offset-xs="30">
+				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
+			</md-input-container> -->
+		</form>
+	</div>
+	<!-- The API currently has a bug where you cannot limit results by both normal filters and platforms. http://www.giantbomb.com/forums/api-developers-3017/unable-to-filter-games-by-date-added-1794952/#3 -->
+	<h2>Limit by platform..</h2>
+	<p>Retrieve only games that were released for certain systems. Separate multiple systems by comma.</p>
+	<div id="question-platform">
+		<md-input-container>
+			<label></label>
+			<input type="text" ng-model="questions.platforms" placeholder="ex: super nintendo,sega genesis"></input>
+		</md-input-container>
+	</div>
+	<div id="submit">
+		<form ng-submit="questions.submit(questions.after, questions.before, questions.platforms)">
+			<md-input-container>
 				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
 			</md-input-container>
 		</form>
 	</div>
+	<div> 
 	<md-content ng-if="questions.game.name">
 		<p>Let's play...</p>
 		<h2>{{ questions.game.name }}</h2>

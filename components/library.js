@@ -75,12 +75,19 @@
 				});
 			}
 
-			function getGames(after, before){
+			function getGames(after, before, platforms){
+				console.log(platforms);
+				if(platforms){
+					platforms = 'platforms:'+platforms;
+				} else {
+					platforms = '';
+				}
 				var url = 'http://www.giantbomb.com/api/games';
 				var params = {
 					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
 					format: 'json',
 					filter: 'original_release_date:'+after+'|'+before,
+					// platforms: 121,
 					sort: 'number_of_user_reviews:desc'
 				};
 				return $http({
@@ -224,6 +231,17 @@
 			return updated;
 		}
 	}
+
+	//Platforms used in the Giant Bomb API request param 
+	// function agsPlatforms(){
+	// 	return function(){
+	// 		var platforms = [
+	// 		{
+	// 			id:
+	// 		}
+	// 		];
+	// 	}
+	// }
 
 
 })();

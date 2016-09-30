@@ -10,5 +10,10 @@ header #menu ul {
   header #menu ul li {
     display: inline-block; }
 
+#home {
+  margin: 0 4em; }
+  #home h2 {
+    text-align: center; }
+
 #questions {
   text-align: center; }

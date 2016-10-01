@@ -52,7 +52,7 @@
 			var services = {
 				get: get,
 				getGames: getGames,
-				getGame: getGame
+				getGenres: getGenres
 			};
 
 			return services;
@@ -114,12 +114,12 @@
 				});
 			}
 
-			function getGame(){
-				var url = 'http://www.giantbomb.com/api/game',
+			//To get back a list of all the genre values. Maybe will make my own stored array, or I'll invoke this on page load.
+			function getGenres(){
+				var url = 'http://www.giantbomb.com/api/genres',
 				params = {
 					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
-					format: 'json',
-					name: 'Street Fighter'
+					format: 'json'
 				}
 				return get2(url, params);
 			}

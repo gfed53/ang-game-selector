@@ -30,6 +30,8 @@
 		// 	console.log(results);
 		// });
 
+		agsGiantBombAPI().getGenres()
+
 		function GameChoice(after, before, platforms){
 			// this.genre = genre;
 			this.after = after;

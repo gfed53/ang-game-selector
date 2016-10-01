@@ -1,9 +1,9 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsIgdbAPI', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates){
+	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsIgdbAPI){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
@@ -23,6 +23,11 @@
 		// agsGiantBombAPI().getGames()
 		// .then(function(results){
 		// 	vm.gbGames = results;
+		// });
+
+		// agsIgdbAPI().get()
+		// .then(function(results){
+		// 	console.log(results);
 		// });
 
 		function GameChoice(after, before, platforms){

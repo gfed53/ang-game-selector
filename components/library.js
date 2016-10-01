@@ -7,6 +7,7 @@
 	.factory('agsSearchOptions', agsSearchOptions)
 	.factory('agsSelectRand', agsSelectRand)
 	.factory('agsModifyDates', agsModifyDates)
+	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -87,7 +88,7 @@
 					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
 					format: 'json',
 					filter: 'original_release_date:'+after+'|'+before,
-					// platforms: 121,
+					platforms: [121,19],
 					sort: 'number_of_user_reviews:desc'
 				};
 				return $http({
@@ -125,6 +126,7 @@
 		};
 	}
 
+	//This is just for the mock JSON list of games I added. Probably won't be implemented, but holding on JIC.
 	function agsSearchOptions(){
 		return function(){
 			var genres = [
@@ -193,6 +195,7 @@
 		}
 	}
 
+	//Are random selector.
 	function agsSelectRand(){
 		return function(){
 			var services = {
@@ -218,6 +221,7 @@
 		}
 	}
 
+	//Service to modify the date string format so dates of the selected game can be formatted in the view via Angular's filters.
 	function agsModifyDates(){
 		return function(list){
 			var updated = [];
@@ -232,16 +236,96 @@
 		}
 	}
 
-	//Platforms used in the Giant Bomb API request param 
-	// function agsPlatforms(){
-	// 	return function(){
-	// 		var platforms = [
-	// 		{
-	// 			id:
-	// 		}
-	// 		];
-	// 	}
-	// }
+	// Platforms used in the Giant Bomb API request param 
+	function agsGbPlatforms(){
+		return function(){
+			var platforms = [
+			{
+				id: 121,
+				label : 'iPad'
+			},{
+				id: 19,
+				label : 'Sony Playstation 2'
+			},{
+				id: 42,
+				label : 'Sega Saturn'
+			},{
+				id: 86,
+				label : 'XBOX 360 Games Store'
+			},{
+				id: 88,
+				label : 'PlayStation Network (PS3)'
+			},{
+				id: 94,
+				label : 'PC'
+			},{
+				id: 121,
+				label : 'iPad'
+			},{
+				id: 121,
+				label : 'iPad'
+			},{
+				id: 121,
+				label : 'iPad'
+			},{
+				id: 121,
+				label : 'iPad'
+			},{
+				id: 121,
+				label : 'iPad'
+			},
+			];
+		}
 
+		function get(){
+			return platforms;
+		}
+
+		var services = {
+			get: get
+		}
+
+		return services;
+	}
+
+	//Same essential functionality as Giant Bomb, but using different API. Alterative to possibly be used ITF.
+	function agsIgdbAPI($http, $q){
+		return function(){
+			var services = {
+				get: get
+			};
+
+			return services;
+
+			function get(){
+				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
+				var params = {
+					fields: '*',
+					// search: 'metroid', //example for now
+					'filter[rating][gte]': 80
+				};
+				var headers = {
+					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',
+					'Accept': 'application/json'
+				};
+				return $http({
+					method: 'GET',
+					url: url,
+					params: params,
+					headers: headers
+				})
+				.then(function(results){
+					console.log(results);
+					return $q.when(results);
+				});
+			}
+		}
+	}
+
+	// function agsIgdbCodes(){
+	// 	var genres = [];
+
+	// 	var 
+	// }
 
 })();

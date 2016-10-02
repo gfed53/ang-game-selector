@@ -8,6 +8,7 @@
 		vm.obj;
 		vm.set = set;
 		vm.submit = submit;
+		vm.submitIgdb = submitIgdb;
 		vm.genres = agsSearchOptions().getGenres();
 		vm.decades = agsSearchOptions().getDecades();
 		// console.log(vm.decades);
@@ -44,11 +45,17 @@
 			this.platforms = platforms;
 		};
 
+		//788936400000
+		//1475439456000
+		// var examp = moment(788936400000);
+		// console.log(examp);
+
 		var current = new GameChoice('RPG', [1981,1990]);
 
 		function set(_after_, _before_, platforms){
-			var after = moment(_after_).format('YYYY-MM-DD HH:mm:ss');
-			var before = moment(_before_).format('YYYY-MM-DD HH:mm:ss');
+			var after = parseInt(moment(_after_).format('x'));
+			var before = parseInt(moment(_before_).format('x'));
+			console.log(after);
 
 			vm.obj = new GameChoice(after, before, platforms);
 			// console.log(vm.obj);
@@ -66,15 +73,30 @@
 		// 	console.log(vm.game);
 		// }
 
-		function submit(after, before, platforms){
+		// function submit(after, before, platforms){
+		// 	vm.set(after, before, platforms);
+		// 	vm.isLoading = true;
+		// 	agsGiantBombAPI().getGames(vm.obj.after, vm.obj.before, vm.obj.platforms)
+		// 	.then(function(results){
+		// 		console.log(results);
+		// 		vm.isLoading = false;
+		// 		vm.gbGames = results.data.results;
+		// 		vm.gbGames = agsModifyDates(vm.gbGames);
+		// 		console.log(vm.gbGames);			
+		// 		vm.game = agsSelectRand().get(vm.gbGames);
+		// 		console.log(vm.game);
+		// 	});
+		// }
+
+		function submitIgdb(after, before, platforms){
 			vm.set(after, before, platforms);
 			vm.isLoading = true;
-			agsGiantBombAPI().getGames(vm.obj.after, vm.obj.before, vm.obj.platforms)
+			agsIgdbAPI().get(vm.obj.after, vm.obj.before, vm.obj.platforms)
 			.then(function(results){
 				console.log(results);
 				vm.isLoading = false;
-				vm.gbGames = results.data.results;
-				vm.gbGames = agsModifyDates(vm.gbGames);
+				vm.gbGames = results.data;
+				// vm.gbGames = agsModifyDates(vm.gbGames);
 				console.log(vm.gbGames);			
 				vm.game = agsSelectRand().get(vm.gbGames);
 				console.log(vm.game);

@@ -236,8 +236,8 @@
 		return function(list){
 			var updated = [];
 			list.forEach(function(current,index,array){
-				var date = moment(current.original_release_date, 'YYYY-MM-DD HH:mm:ss').format();
-				current.original_release_date = date;
+				var date = moment(current.first_release_date, 'x').format();
+				current.first_release_date = date;
 				// console.log(current);
 				updated.push(current);
 			})
@@ -312,10 +312,13 @@
 				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
 				var params = {
 					fields: '*',
+					limit: 50,
 					// search: 'metroid', //example for now
+					order: 'rating:desc',
 					'filter[rating][gte]': 60,
-					'filter[release_date][gte]': after,
-					'filter[release_date][lte]': before
+					'filter[first_release_date][gte]': after,
+					'filter[first_release_date][lte]': before
+					
 				};
 				var headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',
@@ -328,7 +331,7 @@
 					headers: headers
 				})
 				.then(function(results){
-					console.log(results);
+					// console.log(results);
 					return $q.when(results);
 				});
 			}

@@ -18,7 +18,7 @@
 	</div>
 	<!-- The Giant Bomb API currently has a bug where you cannot limit results by both normal filters and platforms. http://www.giantbomb.com/forums/api-developers-3017/unable-to-filter-games-by-date-added-1794952/#3 -->
 	<h2>Limit by platform..</h2>
-	<p>Retrieve only games that were released for certain systems. Separate multiple systems by comma.</p>
+	<p>Retrieve only games that were released for certain systems.</p>
 	<div id="question-platform">
 		<md-input-container ng-if="questions.platforms">
 			<label>Platform</label>
@@ -29,7 +29,7 @@
 		<h2 ng-if="!questions.platforms">Retrieving list of platforms..</h2>
 	</div>
 	<div id="submit">
-		<form ng-submit="questions.submit(questions.after, questions.before, questions.platforms)">
+		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platforms)">
 			<md-input-container>
 				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
 			</md-input-container>
@@ -39,9 +39,9 @@
 	<md-content ng-if="questions.game.name">
 		<p>Let's play...</p>
 		<h2>{{ questions.game.name }}</h2>
-		<p>Released: {{ questions.game.original_release_date | date : 'M/d/yy' }}</p>
-		<p>{{ questions.game.deck }}</p>
-		<p>Find out more <a target="_blank" href="{{ questions.game.site_detail_url }}">here</a>!</p>
+		<p>First Released: {{ questions.game.first_release_date | date : 'M/d/yy' }}</p>
+		<p>{{ questions.game.summary }}</p>
+		<p>Find out more <a target="_blank" href="{{ questions.game.url }}">here</a>!</p>
 	</md-content>
 	<md-content ng-if="questions.game.error">
 		<h2>Whoops!</h2>

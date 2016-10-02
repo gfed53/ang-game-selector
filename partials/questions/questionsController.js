@@ -1,9 +1,9 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsIgdbAPI', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsIgdbAPI){
+	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
@@ -30,7 +30,12 @@
 		// 	console.log(results);
 		// });
 
-		agsGiantBombAPI().getGenres()
+		// agsGiantBombAPI().getPlatforms()
+		// .then(function(results){
+		// 	vm.platforms = results.data.results;
+		// });
+
+		vm.platforms = agsGbPlatforms().get();
 
 		function GameChoice(after, before, platforms){
 			// this.genre = genre;
@@ -66,6 +71,7 @@
 			vm.isLoading = true;
 			agsGiantBombAPI().getGames(vm.obj.after, vm.obj.before, vm.obj.platforms)
 			.then(function(results){
+				console.log(results);
 				vm.isLoading = false;
 				vm.gbGames = results.data.results;
 				vm.gbGames = agsModifyDates(vm.gbGames);

@@ -7,6 +7,7 @@
 	.factory('agsSearchOptions', agsSearchOptions)
 	.factory('agsSelectRand', agsSelectRand)
 	.factory('agsModifyDates', agsModifyDates)
+	.factory('agsGbPlatforms', agsGbPlatforms)
 	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
@@ -52,7 +53,7 @@
 			var services = {
 				get: get,
 				getGames: getGames,
-				getGenres: getGenres
+				getPlatforms: getPlatforms
 			};
 
 			return services;
@@ -76,23 +77,32 @@
 				});
 			}
 
-			function getGames(after, before, platforms){
-				console.log(platforms);
-				if(platforms){
-					platforms = 'platforms:'+platforms;
+			function getGames(after, before, platform){
+				console.log(platform);
+				if(platform){
+					platform = 'platforms:'+platform;
 				} else {
-					platforms = '';
+					platform = '';
 				}
 				var url = 'http://www.giantbomb.com/api/games';
 				var params = {
 					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
-					format: 'json',
+					format: 'jsonp',
 					filter: 'original_release_date:'+after+'|'+before,
-					platforms: [121,19],
-					sort: 'number_of_user_reviews:desc'
+					// platforms: [121,19],
+					sort: 'number_of_user_reviews:desc',
+					json_callback: 'JSON_CALLBACK'
 				};
+				// Add this for fix
+				// if(after && before){
+				// 	params.filter = 'original_release_date:'+after+'|'+before;
+				// }
+				// var headers = {
+				// 	'Accept': 'application/json'
+				// };
+
 				return $http({
-					method: 'GET',
+					method: 'JSONP',
 					url: url,
 					params: params
 				})
@@ -115,8 +125,8 @@
 			}
 
 			//To get back a list of all the genre values. Maybe will make my own stored array, or I'll invoke this on page load.
-			function getGenres(){
-				var url = 'http://www.giantbomb.com/api/genres',
+			function getPlatforms(){
+				var url = 'http://www.giantbomb.com/api/platforms',
 				params = {
 					api_key: '57d4c08afd3b49f21e6d66048c07684b98d0916a',
 					format: 'json'
@@ -242,50 +252,51 @@
 			var platforms = [
 			{
 				id: 121,
-				label : 'iPad'
+				name: 'iPad'
 			},{
 				id: 19,
-				label : 'Sony Playstation 2'
+				name: 'Sony Playstation 2'
 			},{
 				id: 42,
-				label : 'Sega Saturn'
+				name: 'Sega Saturn'
 			},{
 				id: 86,
-				label : 'XBOX 360 Games Store'
+				name: 'XBOX 360 Games Store'
 			},{
 				id: 88,
-				label : 'PlayStation Network (PS3)'
+				name: 'PlayStation Network (PS3)'
 			},{
 				id: 94,
-				label : 'PC'
-			},{
-				id: 121,
-				label : 'iPad'
-			},{
-				id: 121,
-				label : 'iPad'
-			},{
-				id: 121,
-				label : 'iPad'
-			},{
-				id: 121,
-				label : 'iPad'
-			},{
-				id: 121,
-				label : 'iPad'
-			},
+				name: 'PC'
+			}
+			// {
+			// 	id: 121,
+			// 	name: 'iPad'
+			// },{
+			// 	id: 121,
+			// 	name: 'iPad'
+			// },{
+			// 	id: 121,
+			// 	name: 'iPad'
+			// },{
+			// 	id: 121,
+			// 	name: 'iPad'
+			// },{
+			// 	id: 121,
+			// 	name: 'iPad'
+			// },
 			];
-		}
 
-		function get(){
-			return platforms;
-		}
+			function get(){
+				return platforms;
+			}
 
-		var services = {
-			get: get
-		}
+			var services = {
+				get: get
+			}
 
-		return services;
+			return services;
+		}
 	}
 
 	//Same essential functionality as Giant Bomb, but using different API. Alterative to possibly be used ITF.
@@ -297,12 +308,14 @@
 
 			return services;
 
-			function get(){
+			function get(after, before){
 				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
 				var params = {
 					fields: '*',
 					// search: 'metroid', //example for now
-					'filter[rating][gte]': 80
+					'filter[rating][gte]': 60,
+					'filter[release_date][gte]': after,
+					'filter[release_date][lte]': before
 				};
 				var headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',

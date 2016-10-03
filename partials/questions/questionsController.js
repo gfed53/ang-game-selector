@@ -1,9 +1,9 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', 'agsIgdbPlatforms', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI){
+	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI, agsIgdbPlatforms){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
@@ -36,7 +36,28 @@
 		// 	vm.platforms = results.data.results;
 		// });
 
-		vm.platforms = agsGbPlatforms().get();
+
+		//TODO: Move this to service/factory 
+		// agsIgdbPlatforms().get(0)
+		// .then(function(results){
+		// 	console.log(results);
+		// 	vm.othPlatforms = results.data;
+		// 	agsIgdbPlatforms().get(50)
+		// 	.then(function(results){
+		// 		console.log(results);
+		// 		vm.platforms = vm.othPlatforms.concat(results.data);
+		// 		console.log(vm.platforms);
+		// 	});
+		// });
+
+		agsIgdbPlatforms().getAll()
+		.then(function(results){
+			console.log(results);
+			vm.platforms = results;
+		});
+
+
+		// vm.platforms = agsGbPlatforms().get();
 
 		function GameChoice(after, before, platforms){
 			// this.genre = genre;

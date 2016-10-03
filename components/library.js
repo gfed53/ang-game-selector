@@ -9,6 +9,7 @@
 	.factory('agsModifyDates', agsModifyDates)
 	.factory('agsGbPlatforms', agsGbPlatforms)
 	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
+	.factory('agsIgdbPlatforms', ['$http', '$q', agsIgdbPlatforms])
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -308,18 +309,21 @@
 
 			return services;
 
-			function get(after, before){
+			function get(after, before, platforms){
 				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
 				var params = {
 					fields: '*',
 					limit: 50,
 					// search: 'metroid', //example for now
 					order: 'rating:desc',
-					'filter[rating][gte]': 60,
+					// 'filter[rating][gte]': 60,
 					'filter[first_release_date][gte]': after,
 					'filter[first_release_date][lte]': before
-					
+					// 'filter[release_dates.platform][eq]': platforms
 				};
+				if(platforms){
+					params['filter[release_dates.platform][eq]'] = platforms;
+				}
 				var headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',
 					'Accept': 'application/json'
@@ -338,10 +342,72 @@
 		}
 	}
 
-	// function agsIgdbCodes(){
-	// 	var genres = [];
+	function agsIgdbPlatforms($http, $q){
+		return function(){
+			var services = {
+				get: get,
+				getAll: getAll
+			};
 
-	// 	var 
-	// }
+			var anyObj = {
+				'name': '--Any--'
+			};
+
+			return services;
+
+			function get(offset){
+				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/platforms/';
+				var params = {
+					fields: '*',
+					limit: 50,
+					offset: offset
+				};
+				var headers = {
+					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
+				};
+				return $http({
+					method: 'GET',
+					url: url,
+					params: params,
+					headers: headers
+				})
+				.then(function(results){
+					// console.log(results);
+					return $q.when(results);
+				});
+			}
+
+			function getAll(){
+				var deferred = $q.defer();
+				var first,
+				merged;
+				get(0)
+				.then(function(results){
+					first = results.data;
+					console.log(first);
+					return first;
+				})
+				.then(function(first){
+					get(50)
+					.then(function(results){
+						var second = results.data;
+						merged = first.concat(second);
+						return merged;
+					})
+					.then(function(merged){
+						get(100)
+						.then(function(results){
+							console.log(results);
+							var third = results.data;
+							merged = merged.concat(third);
+							merged.push(anyObj);
+							deferred.resolve(merged);
+						});
+					});
+				});
+				return deferred.promise;
+			}
+		}
+	}
 
 })();

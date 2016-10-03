@@ -23,13 +23,13 @@
 		<md-input-container ng-if="questions.platforms">
 			<label>Platform</label>
 				<md-select ng-model="questions.platform" aria-label="...">
-  					<md-option ng-value="platform" ng-repeat="platform in questions.platforms">{{ platform.name }}</md-option>
+  					<md-option ng-value="platform" ng-repeat="platform in questions.platforms | orderBy:'name' track by platform.name">{{ platform.name }}</md-option>
   				</md-select>
 		</md-input-container>
-		<h2 ng-if="!questions.platforms">Retrieving list of platforms..</h2>
+		<p ng-if="!questions.platforms">Retrieving list of platforms..</p>
 	</div>
 	<div id="submit">
-		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platforms)">
+		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platform.id)">
 			<md-input-container>
 				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
 			</md-input-container>

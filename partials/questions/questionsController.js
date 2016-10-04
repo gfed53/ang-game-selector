@@ -13,11 +13,11 @@
 		vm.decades = agsSearchOptions().getDecades();
 		// console.log(vm.decades);
 
-		vm.genre = vm.genres[0];
-		vm.yearRange = vm.decades[0];
+		//Defaults
+		// vm.after = '1971-01-01T04:00:00.000Z';
+		// vm.before = Date.now();
 
-		var examp = moment('2016-09-11T04:00:00.000Z');
-		examp = examp.format('YYYY-MM-DD HH:mm:ss');
+		vm.genre = vm.genres[0];
 
 		// console.log(examp);
 
@@ -36,19 +36,6 @@
 		// 	vm.platforms = results.data.results;
 		// });
 
-
-		//TODO: Move this to service/factory 
-		// agsIgdbPlatforms().get(0)
-		// .then(function(results){
-		// 	console.log(results);
-		// 	vm.othPlatforms = results.data;
-		// 	agsIgdbPlatforms().get(50)
-		// 	.then(function(results){
-		// 		console.log(results);
-		// 		vm.platforms = vm.othPlatforms.concat(results.data);
-		// 		console.log(vm.platforms);
-		// 	});
-		// });
 
 		agsIgdbPlatforms().getAll()
 		.then(function(results){
@@ -73,7 +60,10 @@
 
 		var current = new GameChoice('RPG', [1981,1990]);
 
+		//TODO: Create fallback if no date is present
 		function set(_after_, _before_, platforms){
+			var _after_ = (_after_ || '1971-01-01T04:00:00.000Z');
+			var _before_ = (_before_ || Date.now());
 			var after = parseInt(moment(_after_).format('x'));
 			var before = parseInt(moment(_before_).format('x'));
 			console.log(after);

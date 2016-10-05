@@ -1,6 +1,7 @@
 (function(){
 	angular.module('myApp')
 	.constant('AGS_GAMES_JSON_FILE', './games.json')
+	.constant('IGDB_PLATFORMS', './platforms.json')
 	.factory('agsGames', ['$http', '$q', 'AGS_GAMES_JSON_FILE', agsGames])
 	.factory('agsSeeker', agsSeeker)
 	.factory('agsGiantBombAPI', ['$http', '$q', agsGiantBombAPI])
@@ -9,7 +10,7 @@
 	.factory('agsModifyDates', agsModifyDates)
 	.factory('agsGbPlatforms', agsGbPlatforms)
 	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
-	.factory('agsIgdbPlatforms', ['$http', '$q', agsIgdbPlatforms])
+	.factory('agsIgdbPlatforms', ['$http', '$q', 'IGDB_PLATFORMS', agsIgdbPlatforms])
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -342,11 +343,12 @@
 		}
 	}
 
-	function agsIgdbPlatforms($http, $q){
+	function agsIgdbPlatforms($http, $q, IGDB_PLATFORMS){
 		return function(){
 			var services = {
 				get: get,
-				getAll: getAll
+				getAll: getAll,
+				getPlatformsJSON: getPlatformsJSON
 			};
 
 			var anyObj = {
@@ -406,6 +408,14 @@
 					});
 				});
 				return deferred.promise;
+			}
+
+			function getPlatformsJSON(){
+				return $http.get(IGDB_PLATFORMS)
+				.then(function(results){
+					// console.log(results);
+					return $q.when(results);
+				});
 			}
 		}
 	}

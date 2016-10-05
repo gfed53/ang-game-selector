@@ -37,10 +37,19 @@
 		// });
 
 
-		agsIgdbPlatforms().getAll()
+		// agsIgdbPlatforms().getAll()
+		// .then(function(results){
+		// 	// console.log(results);
+		// 	var platforms = JSON.stringify(results);
+		// 	console.log(platforms);
+		// 	vm.platforms = results;
+		// });
+
+		agsIgdbPlatforms().getPlatformsJSON()
 		.then(function(results){
 			console.log(results);
-			vm.platforms = results;
+			// console.log(platforms);
+			vm.platforms = results.data;
 		});
 
 

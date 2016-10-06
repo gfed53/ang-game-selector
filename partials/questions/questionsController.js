@@ -69,13 +69,11 @@
 
 		var current = new GameChoice('RPG', [1981,1990]);
 
-		//TODO: Create fallback if no date is present
 		function set(_after_, _before_, platforms){
 			var _after_ = (_after_ || '1971-01-01T04:00:00.000Z');
 			var _before_ = (_before_ || Date.now());
 			var after = parseInt(moment(_after_).format('x'));
 			var before = parseInt(moment(_before_).format('x'));
-			console.log(after);
 
 			vm.obj = new GameChoice(after, before, platforms);
 			// console.log(vm.obj);

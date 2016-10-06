@@ -11,6 +11,7 @@
 	.factory('agsGbPlatforms', agsGbPlatforms)
 	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
 	.factory('agsIgdbPlatforms', ['$http', '$q', 'IGDB_PLATFORMS', agsIgdbPlatforms])
+	.factory('agsIgdbGenres', ['$http', '$q', agsIgdbGenres])
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -417,6 +418,50 @@
 					return $q.when(results);
 				});
 			}
+		}
+	}
+
+	function agsIgdbGenres($http, $q){
+		return function(){
+			var services = {
+				get: get,
+				getAll: getAll,
+				getGenresJSON: getGenresJSON
+			};
+
+			return services;
+
+			function get(offset){
+				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/genres/';
+				var params = {
+					fields: '*',
+					limit: 50,
+					offset: offset
+				};
+				var headers = {
+					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
+				};
+				return $http({
+					method: 'GET',
+					url: url,
+					params: params,
+					headers: headers
+				})
+				.then(function(results){
+					// console.log(results);
+					return $q.when(results);
+				});
+			}
+
+			function getAll(){
+
+			}
+
+			function getGenresJSON(){
+
+			}
+
+
 		}
 	}
 

@@ -36,7 +36,7 @@
 		<p ng-if="!questions.platforms">Retrieving list of genres..</p>
 	</div>
 	<div id="submit">
-		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platform.id)">
+		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platform.id, questions.genre.id)">
 			<md-input-container>
 				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
 			</md-input-container>

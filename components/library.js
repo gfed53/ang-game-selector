@@ -82,7 +82,6 @@
 			}
 
 			function getGames(after, before, platform){
-				console.log(platform);
 				if(platform){
 					platform = 'platforms:'+platform;
 				} else {
@@ -312,7 +311,7 @@
 
 			return services;
 
-			function get(after, before, platforms){
+			function get(after, before, platforms, genre){
 				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
 				var params = {
 					fields: '*',
@@ -326,6 +325,9 @@
 				};
 				if(platforms){
 					params['filter[release_dates.platform][eq]'] = platforms;
+				}
+				if(genre){
+					params['filter[genres][eq]'] = genre;
 				}
 				var headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',

@@ -1,23 +1,21 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', 'agsIgdbPlatforms', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI, agsIgdbPlatforms){
+	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
 		vm.submit = submit;
 		vm.submitIgdb = submitIgdb;
-		vm.genres = agsSearchOptions().getGenres();
-		vm.decades = agsSearchOptions().getDecades();
+		// vm.genres = agsSearchOptions().getGenres();
+		// vm.decades = agsSearchOptions().getDecades();
 		// console.log(vm.decades);
 
 		//Defaults
 		// vm.after = '1971-01-01T04:00:00.000Z';
 		// vm.before = Date.now();
-
-		vm.genre = vm.genres[0];
 
 		// console.log(examp);
 
@@ -26,10 +24,12 @@
 		// 	vm.gbGames = results;
 		// });
 
-		// agsIgdbAPI().get()
-		// .then(function(results){
-		// 	console.log(results);
-		// });
+		//Getting IGDB Genres
+		agsIgdbGenres().getGenresJSON()
+		.then(function(results){
+			console.log(results);
+			vm.genres = results.data;
+		});
 
 		// agsGiantBombAPI().getPlatforms()
 		// .then(function(results){
@@ -37,7 +37,7 @@
 		// });
 
 
-		// agsIgdbPlatforms().getAll()
+		// agsIgdbGenres().getAll()
 		// .then(function(results){
 		// 	// console.log(results);
 		// 	var platforms = JSON.stringify(results);

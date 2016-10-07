@@ -24,15 +24,17 @@
 		</md-input-container>
 		<p ng-if="!questions.platforms">Retrieving list of platforms..</p>
 	</div>
-<!-- 	<div id="question-genre">
-		<md-input-container>
+	<h2>Limit by genre..</h2>
+	<p>Narrow down your game of choice by your preferred type of game.</p>
+	<div id="question-genre">
+		<md-input-container ng-if="questions.genres">
 			<label>Genre</label>
 				<md-select ng-model="questions.genre" aria-label="...">
-  					<md-option ng-value="platform" ng-repeat="platform in questions.platforms | orderBy:'name' track by platform.name">{{ platform.name }}</md-option>
+  					<md-option ng-value="genre" ng-repeat="genre in questions.genres | orderBy:'name' track by genre.name">{{ genre.name }}</md-option>
   				</md-select>
 		</md-input-container>
 		<p ng-if="!questions.platforms">Retrieving list of genres..</p>
-	</div> -->
+	</div>
 	<div id="submit">
 		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platform.id)">
 			<md-input-container>

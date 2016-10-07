@@ -2,6 +2,7 @@
 	angular.module('myApp')
 	.constant('AGS_GAMES_JSON_FILE', './games.json')
 	.constant('IGDB_PLATFORMS', './platforms.json')
+	.constant('IGDB_GENRES', './genres.json')
 	.factory('agsGames', ['$http', '$q', 'AGS_GAMES_JSON_FILE', agsGames])
 	.factory('agsSeeker', agsSeeker)
 	.factory('agsGiantBombAPI', ['$http', '$q', agsGiantBombAPI])
@@ -11,7 +12,7 @@
 	.factory('agsGbPlatforms', agsGbPlatforms)
 	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
 	.factory('agsIgdbPlatforms', ['$http', '$q', 'IGDB_PLATFORMS', agsIgdbPlatforms])
-	.factory('agsIgdbGenres', ['$http', '$q', agsIgdbGenres])
+	.factory('agsIgdbGenres', ['$http', '$q', 'IGDB_GENRES', agsIgdbGenres])
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -421,7 +422,7 @@
 		}
 	}
 
-	function agsIgdbGenres($http, $q){
+	function agsIgdbGenres($http, $q, IGDB_GENRES){
 		return function(){
 			var services = {
 				get: get,
@@ -458,7 +459,11 @@
 			}
 
 			function getGenresJSON(){
-
+				return $http.get(IGDB_GENRES)
+				.then(function(results){
+					// console.log(results);
+					return $q.when(results);
+				});
 			}
 
 

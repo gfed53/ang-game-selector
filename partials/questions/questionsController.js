@@ -13,13 +13,13 @@
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
 		.then(function(results){
-			console.log(results);
+			// console.log(results);
 			vm.genres = results.data;
 		});
 
 		agsIgdbPlatforms().getPlatformsJSON()
 		.then(function(results){
-			console.log(results);
+			// console.log(results);
 			// console.log(platforms);
 			vm.platforms = results.data;
 		});

@@ -43,7 +43,7 @@
 		</form>
 	</div>
 	<div> 
-	<md-content ng-if="questions.game.name">
+	<md-content ng-if="questions.game.name && !questions.isLoading">
 		<p>Let's play...</p>
 		<h2>{{ questions.game.name }}</h2>
 		<p>First Released: {{ questions.game.first_release_date | date : 'M/d/yy' }}</p>

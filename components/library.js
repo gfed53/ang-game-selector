@@ -311,13 +311,13 @@
 
 			return services;
 
-			function get(after, before, platforms, genre){
+			function get(after, before, platforms, genre, order, rating){
 				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
 				var params = {
 					fields: '*',
 					limit: 50,
 					// search: 'metroid', //example for now
-					order: 'rating:desc',
+					// order: 'rating:desc',
 					// 'filter[rating][gte]': 60,
 					'filter[first_release_date][gte]': after,
 					'filter[first_release_date][lte]': before
@@ -328,6 +328,12 @@
 				}
 				if(genre){
 					params['filter[genres][eq]'] = genre;
+				}
+				if(order){
+					params['order'] = 'rating:desc';
+				}
+				if(rating){
+					params['filter[rating][gte]'] = 75;
 				}
 				var headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',

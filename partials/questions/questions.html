@@ -35,8 +35,16 @@
 		</md-input-container>
 		<p ng-if="!questions.platforms">Retrieving list of genres..</p>
 	</div>
+	<div id="question-extra">
+		<h2>Limit by reception</h2>
+		<p>Checking this off will limit the selection to the most highly rated games based on previous filters.</p>
+		<md-input-container>
+			<md-checkbox aria-label="..." ng-model="questions.order">
+			</md-checkbox>
+		</md-input-container>
+	</div>
 	<div id="submit">
-		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platform.id, questions.genre.id)">
+		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platform.id, questions.genre.id, questions.order, questions.rating)">
 			<md-input-container>
 				<input aria-label="Go!" class="md-button" type="submit" value="Go!">
 			</md-input-container>

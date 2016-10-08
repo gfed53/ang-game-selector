@@ -24,28 +24,27 @@
 			vm.platforms = results.data;
 		});
 
-		function GameChoice(after, before, platforms, genre){
+		function RangeChoice(after, before){
 			this.after = after;
 			this.before = before;
-			this.platforms = platforms;
-			this.genre = genre;
 		};
 
-		function set(_after_, _before_, platforms, genre){
+		//Adjust the date syntax through an object constructor
+		function set(_after_, _before_){
 			var _after_ = (_after_ || '1971-01-01T04:00:00.000Z');
 			var _before_ = (_before_ || Date.now());
 			var after = parseInt(moment(_after_).format('x'));
 			var before = parseInt(moment(_before_).format('x'));
 
-			vm.obj = new GameChoice(after, before, platforms, genre);
+			vm.rangeObj = new RangeChoice(after, before);
 			// console.log(vm.obj);
 		}
 
-		function submitIgdb(after, before, platforms, genre){
+		function submitIgdb(after, before, platform, genre, order, rating){
 			console.log(genre);
-			vm.set(after, before, platforms, genre);
+			vm.set(after, before);
 			vm.isLoading = true;
-			agsIgdbAPI().get(vm.obj.after, vm.obj.before, vm.obj.platforms, vm.obj.genre)
+			agsIgdbAPI().get(vm.rangeObj.after, vm.rangeObj.before, platform, genre, order, rating)
 			.then(function(results){
 				console.log(results);
 				vm.isLoading = false;

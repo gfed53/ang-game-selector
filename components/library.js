@@ -438,6 +438,10 @@
 				getGenresJSON: getGenresJSON
 			};
 
+			var anyObj = {
+				'name': '--Any--'
+			};
+
 			return services;
 
 			function get(offset){
@@ -457,19 +461,16 @@
 					headers: headers
 				})
 				.then(function(results){
-					// console.log(results);
+					console.log(results);
 					return $q.when(results);
 				});
-			}
-
-			function getAll(){
-
 			}
 
 			function getGenresJSON(){
 				return $http.get(IGDB_GENRES)
 				.then(function(results){
 					// console.log(results);
+					results.data.push(anyObj);
 					return $q.when(results);
 				});
 			}

@@ -17,3 +17,10 @@ header #menu ul {
 
 #questions {
   text-align: center; }
+  #questions .game-summary {
+    text-align: left;
+    padding: 0 1em; }
+
+@media screen and (min-width: 768px) {
+  #questions .game-summary {
+    padding: 0 5em; } }

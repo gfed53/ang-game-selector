@@ -55,7 +55,7 @@
 		<p>Let's play...</p>
 		<h2>{{ questions.game.name }}</h2>
 		<p>First Released: {{ questions.game.first_release_date | date : 'M/d/yy' }}</p>
-		<p>{{ questions.game.summary }}</p>
+		<p class="game-summary">{{ questions.game.summary }}</p>
 		<p>Find out more <a target="_blank" href="{{ questions.game.url }}">here</a>!</p>
 	</md-content>
 	<md-content ng-if="questions.game.error">

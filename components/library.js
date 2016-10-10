@@ -434,7 +434,6 @@
 		return function(){
 			var services = {
 				get: get,
-				getAll: getAll,
 				getGenresJSON: getGenresJSON
 			};
 

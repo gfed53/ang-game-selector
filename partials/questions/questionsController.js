@@ -41,7 +41,6 @@
 		}
 
 		function submitIgdb(after, before, platform, genre, order, rating){
-			console.log(genre);
 			vm.set(after, before);
 			vm.isLoading = true;
 			agsIgdbAPI().get(vm.rangeObj.after, vm.rangeObj.before, platform, genre, order, rating)

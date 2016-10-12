@@ -3,14 +3,14 @@ var sass = require("gulp-sass");
 
 //SASS
 gulp.task("sass", function(){
-	return gulp.src("scss/*.scss")
+	return gulp.src("src/scss/*.scss")
 	.pipe(sass())
-	.pipe(gulp.dest("css"));
+	.pipe(gulp.dest("src/css"));
 });
 
 // Watch task
 gulp.task("watch", function(){
-	gulp.watch("scss/*", ["sass"]);
+	gulp.watch("src/scss/*", ["sass"]);
 });
 
 //Default

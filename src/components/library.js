@@ -1,8 +1,8 @@
 (function(){
 	angular.module('myApp')
-	.constant('AGS_GAMES_JSON_FILE', './games.json')
-	.constant('IGDB_PLATFORMS', './platforms.json')
-	.constant('IGDB_GENRES', './genres.json')
+	.constant('AGS_GAMES_JSON_FILE', 'components/games.json')
+	.constant('IGDB_PLATFORMS', 'components/platforms.json')
+	.constant('IGDB_GENRES', 'components/genres.json')
 	.factory('agsGames', ['$http', '$q', 'AGS_GAMES_JSON_FILE', agsGames])
 	.factory('agsSeeker', agsSeeker)
 	.factory('agsGiantBombAPI', ['$http', '$q', agsGiantBombAPI])

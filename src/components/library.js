@@ -13,6 +13,7 @@
 	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
 	.factory('agsIgdbPlatforms', ['$http', '$q', 'IGDB_PLATFORMS', agsIgdbPlatforms])
 	.factory('agsIgdbGenres', ['$http', '$q', 'IGDB_GENRES', agsIgdbGenres])
+	.factory('agsScrollTo', ['$location', '$anchorScroll', agsScrollTo])
 
 	function agsGames($http, $q, AGS_GAMES_JSON_FILE){
 		return function(){
@@ -475,6 +476,36 @@
 			}
 
 
+		}
+	}
+
+	//Auto scroll to answer section on submission
+	function agsScrollTo($location, $anchorScroll){
+		return function(scrollLocation){
+			var services = {
+				scrollToElement: scrollToElement,
+				checkScrollBtnStatus: checkScrollBtnStatus
+			}
+
+			return services;
+
+			function scrollToElement(scrollLocation){
+				var element = document.getElementById(scrollLocation);
+				if(element){
+					$location.hash(scrollLocation);
+					$anchorScroll();
+				} else {
+					window.scroll(0, 0);
+				}
+			}
+
+			function checkScrollBtnStatus(){
+				if(window.scrollY > 100){
+					return true;
+				} else {
+					return false;
+				}
+			}	
 		}
 	}
 

@@ -1,14 +1,17 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', QuestionsCtrl])
 
-	function QuestionsCtrl(agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres){
+	function QuestionsCtrl($scope, $location, $timeout, agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
 		vm.submit = submit;
 		vm.submitIgdb = submitIgdb;
+		//Testing function
+		// vm.mockScrollTo = mockScrollTo;
+		$location.url('/questions');
 
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
@@ -37,21 +40,21 @@
 			var before = parseInt(moment(_before_).format('x'));
 
 			vm.rangeObj = new RangeChoice(after, before);
-			// console.log(vm.obj);
 		}
 
 		function submitIgdb(after, before, platform, genre, order, rating){
 			vm.set(after, before);
 			vm.isLoading = true;
+			agsScrollTo().scrollToElement('answer-container');
 			agsIgdbAPI().get(vm.rangeObj.after, vm.rangeObj.before, platform, genre, order, rating)
 			.then(function(results){
 				console.log(results);
 				vm.isLoading = false;
 				vm.igdbGames = results.data;
-				// vm.gbGames = agsModifyDates(vm.gbGames);
 				console.log(vm.igdbGames);			
 				vm.game = agsSelectRand().get(vm.igdbGames);
 				console.log(vm.game);
+				agsScrollTo().scrollToElement('answer-scroll-point');
 			});
 		}
 	}

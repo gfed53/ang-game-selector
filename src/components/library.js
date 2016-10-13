@@ -97,13 +97,6 @@
 					sort: 'number_of_user_reviews:desc',
 					json_callback: 'JSON_CALLBACK'
 				};
-				// Add this for fix
-				// if(after && before){
-				// 	params.filter = 'original_release_date:'+after+'|'+before;
-				// }
-				// var headers = {
-				// 	'Accept': 'application/json'
-				// };
 
 				return $http({
 					method: 'JSONP',
@@ -111,7 +104,7 @@
 					params: params
 				})
 				.then(function(results){
-					console.log(results);
+					// console.log(results);
 					return $q.when(results);
 				});
 			}
@@ -123,7 +116,7 @@
 					params: params
 				})
 				.then(function(results){
-					console.log(results);
+					// console.log(results);
 					return $q.when(results);
 				});
 			}
@@ -273,22 +266,6 @@
 				id: 94,
 				name: 'PC'
 			}
-			// {
-			// 	id: 121,
-			// 	name: 'iPad'
-			// },{
-			// 	id: 121,
-			// 	name: 'iPad'
-			// },{
-			// 	id: 121,
-			// 	name: 'iPad'
-			// },{
-			// 	id: 121,
-			// 	name: 'iPad'
-			// },{
-			// 	id: 121,
-			// 	name: 'iPad'
-			// },
 			];
 
 			function get(){
@@ -317,12 +294,9 @@
 				var params = {
 					fields: '*',
 					limit: 50,
-					// search: 'metroid', //example for now
-					// order: 'rating:desc',
 					// 'filter[rating][gte]': 60,
 					'filter[first_release_date][gte]': after,
 					'filter[first_release_date][lte]': before
-					// 'filter[release_dates.platform][eq]': platforms
 				};
 				if(platforms){
 					params['filter[release_dates.platform][eq]'] = platforms;
@@ -397,7 +371,7 @@
 				get(0)
 				.then(function(results){
 					first = results.data;
-					console.log(first);
+					// console.log(first);
 					return first;
 				})
 				.then(function(first){
@@ -410,7 +384,7 @@
 					.then(function(merged){
 						get(100)
 						.then(function(results){
-							console.log(results);
+							// console.log(results);
 							var third = results.data;
 							merged = merged.concat(third);
 							merged.push(anyObj);
@@ -461,7 +435,7 @@
 					headers: headers
 				})
 				.then(function(results){
-					console.log(results);
+					// console.log(results);
 					return $q.when(results);
 				});
 			}

@@ -20,7 +20,11 @@ header #menu ul {
   #questions .game-summary {
     text-align: left;
     padding: 0 1em; }
+  #questions .game-image {
+    width: 50%; }
 
 @media screen and (min-width: 768px) {
   #questions .game-summary {
-    padding: 0 5em; } }
+    padding: 0 5em; }
+  #questions .game-image {
+    width: 25%; } }

@@ -4,12 +4,18 @@
 		text-align: left;
 		padding: 0 1em;
 	}
+	.game-image {
+		width: 50%;
+	}
 }
 
 @media screen and ($tablet){
 	#questions {
 		.game-summary {
 			padding: 0 5em;
+		}
+		.game-image {
+			width: 25%;
 		}
 	}
 }

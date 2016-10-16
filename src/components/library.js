@@ -305,7 +305,8 @@
 					params['filter[genres][eq]'] = genre;
 				}
 				if(order){
-					params['order'] = 'rating:desc';
+					// params['order'] = 'rating:desc';
+					params['order'] = 'popularity:desc';
 				}
 				if(rating){
 					params['filter[rating][gte]'] = 75;

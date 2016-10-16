@@ -1,29 +1,24 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsGames', 'agsSeeker', 'agsGiantBombAPI', 'agsSearchOptions', 'agsSelectRand', 'agsModifyDates', 'agsGbPlatforms', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', QuestionsCtrl])
 
-	function QuestionsCtrl($scope, $location, $timeout, agsGames, agsSeeker, agsGiantBombAPI, agsSearchOptions, agsSelectRand, agsModifyDates, agsGbPlatforms, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo){
+	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo){
 		var vm = this;
 		vm.obj;
 		vm.set = set;
 		vm.submit = submit;
 		vm.submitIgdb = submitIgdb;
-		//Testing function
-		// vm.mockScrollTo = mockScrollTo;
 		$location.url('/questions');
 
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
 		.then(function(results){
-			// console.log(results);
 			vm.genres = results.data;
 		});
 
 		agsIgdbPlatforms().getPlatformsJSON()
 		.then(function(results){
-			// console.log(results);
-			// console.log(platforms);
 			vm.platforms = results.data;
 		});
 

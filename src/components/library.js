@@ -46,7 +46,7 @@
 				var params = {
 					fields: '*',
 					limit: 50,
-					// 'filter[rating][gte]': 60,
+					// 'filter[rating][gte]': 60, bug within API
 					'filter[first_release_date][gte]': after,
 					'filter[first_release_date][lte]': before
 				};
@@ -81,6 +81,8 @@
 		}
 	}
 
+	//Retrieve our list of platforms from the IGDB API
+	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (platforms aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)   
 	function agsIgdbPlatforms($http, $q, IGDB_PLATFORMS){
 		return function(){
 			var services = {
@@ -148,6 +150,7 @@
 				return deferred.promise;
 			}
 
+			//This is currently what's being used
 			function getPlatformsJSON(){
 				return $http.get(IGDB_PLATFORMS)
 				.then(function(results){
@@ -158,6 +161,8 @@
 		}
 	}
 
+	//Retrieve our list of genres from the IGDB API
+	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (genres aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)
 	function agsIgdbGenres($http, $q, IGDB_GENRES){
 		return function(){
 			var services = {
@@ -193,6 +198,7 @@
 				});
 			}
 
+			//This is currently what's being used
 			function getGenresJSON(){
 				return $http.get(IGDB_GENRES)
 				.then(function(results){

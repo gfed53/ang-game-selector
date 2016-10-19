@@ -1,5 +1,8 @@
 #my-checkbox {
-  margin-left: 1.2em; }
+  margin-left: 0.5em; }
+
+#my-submit-button {
+  margin: 0; }
 
 header #header-top, header #menu {
   text-align: center; }

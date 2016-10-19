@@ -1,3 +1,6 @@
+#content {
+  margin: 1em; }
+
 #my-checkbox {
   margin-left: 0.5em; }
 
@@ -16,10 +19,12 @@ header #menu ul {
   header #menu ul li {
     display: inline-block; }
 
-#home {
-  margin: 0 4em; }
-  #home h2 {
-    text-align: center; }
+#home h2 {
+  text-align: center; }
+
+@media screen and (min-width: 768px) {
+  #home {
+    margin: 0 4em; } }
 
 #questions {
   text-align: center; }

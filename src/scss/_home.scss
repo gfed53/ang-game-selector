@@ -1,6 +1,11 @@
 #home {
-	margin: 0 4em;
 	h2 {
 		text-align: center;
+	}
+}
+
+@media screen and ($tablet){
+	#home {
+		margin: 0 4em;
 	}
 }

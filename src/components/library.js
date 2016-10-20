@@ -1,7 +1,7 @@
 (function(){
 	angular.module('myApp')
-	.constant('IGDB_PLATFORMS', 'components/platforms.json')
-	.constant('IGDB_GENRES', 'components/genres.json')
+	.constant('IGDB_PLATFORMS', '../lib/platforms.json')
+	.constant('IGDB_GENRES', '../lib/genres.json')
 	.factory('agsSelectRand', agsSelectRand)
 	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
 	.factory('agsIgdbPlatforms', ['$http', '$q', 'IGDB_PLATFORMS', agsIgdbPlatforms])

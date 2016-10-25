@@ -9,6 +9,14 @@
 	}
 }
 
+@media screen and ($tabTweak1){
+	#questions {
+		.my-datepicker-container {
+			max-width: 23%;
+		}
+	}
+}
+
 @media screen and ($tablet){
 	#questions {
 		.game-summary {

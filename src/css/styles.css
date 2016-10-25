@@ -34,6 +34,10 @@ header #menu ul {
   #questions .game-image {
     width: 50%; }
 
+@media screen and (min-width: 600px) {
+  #questions .my-datepicker-container {
+    max-width: 23%; } }
+
 @media screen and (min-width: 768px) {
   #questions .game-summary {
     padding: 0 5em; }

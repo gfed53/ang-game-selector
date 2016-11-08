@@ -11,13 +11,13 @@
 	//Our random selector.
 	function agsSelectRand(){
 		return function(){
-			var services = {
+			let services = {
 				get: get
 			}
 
 			function get(array){
 				if(!array || array.length === 0){
-					var error = {
+					let error = {
 						error: true
 					};
 
@@ -35,15 +35,15 @@
 	//Factory used to retrieve our list of games based on filters, before randomly selecting one - our end result
 	function agsIgdbAPI($http, $q){
 		return function(){
-			var services = {
+			let services = {
 				get: get
 			};
 
 			return services;
 
 			function get(after, before, platforms, genre, order, rating){
-				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
-				var params = {
+				let url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
+				let params = {
 					fields: '*',
 					limit: 50,
 					// 'filter[rating][gte]': 60, bug within API
@@ -63,7 +63,7 @@
 				if(rating){
 					params['filter[rating][gte]'] = 75;
 				}
-				var headers = {
+				let headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',
 					'Accept': 'application/json'
 				};
@@ -73,10 +73,7 @@
 					params: params,
 					headers: headers
 				})
-				.then(function(results){
-					// console.log(results);
-					return $q.when(results);
-				});
+				.then((results) => $q.when(results));
 			}
 		}
 	}
@@ -85,26 +82,26 @@
 	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (platforms aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)   
 	function agsIgdbPlatforms($http, $q, IGDB_PLATFORMS){
 		return function(){
-			var services = {
+			let services = {
 				get: get,
 				getAll: getAll,
 				getPlatformsJSON: getPlatformsJSON
 			};
 
-			var anyObj = {
+			let anyObj = {
 				'name': '--Any--'
 			};
 
 			return services;
 
 			function get(offset){
-				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/platforms/';
-				var params = {
+				let url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/platforms/';
+				let params = {
 					fields: '*',
 					limit: 50,
 					offset: offset
 				};
-				var headers = {
+				let headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
 				};
 				return $http({
@@ -113,34 +110,31 @@
 					params: params,
 					headers: headers
 				})
-				.then(function(results){
-					// console.log(results);
-					return $q.when(results);
-				});
+				.then((results) => $q.when(results));
 			}
 
 			function getAll(){
-				var deferred = $q.defer();
-				var first,
+				let deferred = $q.defer();
+				let first,
 				merged;
 				get(0)
-				.then(function(results){
+				.then((results) => {
 					first = results.data;
 					// console.log(first);
 					return first;
 				})
-				.then(function(first){
+				.then((first) => {
 					get(50)
-					.then(function(results){
-						var second = results.data;
+					.then((results) => {
+						let second = results.data;
 						merged = first.concat(second);
 						return merged;
 					})
-					.then(function(merged){
+					.then((merged) => {
 						get(100)
-						.then(function(results){
+						.then((results) => {
 							// console.log(results);
-							var third = results.data;
+							let third = results.data;
 							merged = merged.concat(third);
 							merged.push(anyObj);
 							deferred.resolve(merged);
@@ -153,10 +147,7 @@
 			//This is currently what's being used
 			function getPlatformsJSON(){
 				return $http.get(IGDB_PLATFORMS)
-				.then(function(results){
-					// console.log(results);
-					return $q.when(results);
-				});
+				.then((results) => $q.when(results));
 			}
 		}
 	}
@@ -165,25 +156,25 @@
 	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (genres aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)
 	function agsIgdbGenres($http, $q, IGDB_GENRES){
 		return function(){
-			var services = {
+			let services = {
 				get: get,
 				getGenresJSON: getGenresJSON
 			};
 
-			var anyObj = {
+			let anyObj = {
 				'name': '--Any--'
 			};
 
 			return services;
 
 			function get(offset){
-				var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/genres/';
-				var params = {
+				let url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/genres/';
+				let params = {
 					fields: '*',
 					limit: 50,
 					offset: offset
 				};
-				var headers = {
+				let headers = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
 				};
 				return $http({
@@ -192,16 +183,13 @@
 					params: params,
 					headers: headers
 				})
-				.then(function(results){
-					// console.log(results);
-					return $q.when(results);
-				});
+				.then((results) => $q.when(results));
 			}
 
 			//This is currently what's being used
 			function getGenresJSON(){
 				return $http.get(IGDB_GENRES)
-				.then(function(results){
+				.then((results) => {
 					// console.log(results);
 					results.data.push(anyObj);
 					return $q.when(results);
@@ -215,7 +203,7 @@
 	//Auto scroll to answer section on submission
 	function agsScrollTo($location, $anchorScroll){
 		return function(scrollLocation){
-			var services = {
+			let services = {
 				scrollToElement: scrollToElement,
 				checkScrollBtnStatus: checkScrollBtnStatus
 			}
@@ -223,7 +211,7 @@
 			return services;
 
 			function scrollToElement(scrollLocation){
-				var element = document.getElementById(scrollLocation);
+				let element = document.getElementById(scrollLocation);
 				if(element){
 					$location.hash(scrollLocation);
 					$anchorScroll();

@@ -4,7 +4,7 @@
 	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', QuestionsCtrl])
 
 	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo){
-		var vm = this;
+		let vm = this;
 		vm.obj;
 		vm.set = set;
 		vm.submit = submit;
@@ -13,12 +13,12 @@
 
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
-		.then(function(results){
+		.then((results) => {
 			vm.genres = results.data;
 		});
 
 		agsIgdbPlatforms().getPlatformsJSON()
-		.then(function(results){
+		.then((results) => {
 			vm.platforms = results.data;
 		});
 
@@ -29,10 +29,10 @@
 
 		//Adjust the date syntax through an object constructor
 		function set(_after_, _before_){
-			var _after_ = (_after_ || '1971-01-01T04:00:00.000Z');
-			var _before_ = (_before_ || Date.now());
-			var after = parseInt(moment(_after_).format('x'));
-			var before = parseInt(moment(_before_).format('x'));
+			_after_ = (_after_ || '1971-01-01T04:00:00.000Z');
+			_before_ = (_before_ || Date.now());
+			let after = parseInt(moment(_after_).format('x'));
+			let before = parseInt(moment(_before_).format('x'));
 
 			vm.rangeObj = new RangeChoice(after, before);
 		}
@@ -42,7 +42,7 @@
 			vm.isLoading = true;
 			agsScrollTo().scrollToElement('answer-container');
 			agsIgdbAPI().get(vm.rangeObj.after, vm.rangeObj.before, platform, genre, order, rating)
-			.then(function(results){
+			.then((results) => {
 				console.log(results);
 				vm.isLoading = false;
 				vm.igdbGames = results.data;

@@ -6,7 +6,7 @@
 
 	function routerConfig($stateProvider, $urlRouterProvider){
 		$urlRouterProvider.otherwise('home')
-		var myRoot = {
+		const myRoot = {
 			name: 'root',
 			url: '/',
 			views: {

@@ -4,9 +4,7 @@
 	.controller('MenuCtrl', ['$rootScope', '$state', MenuCtrl])
 
 	function MenuCtrl($rootScope, $state){
-		// console.log('menu');
-		var vm = this;
-		// vm.isActive = isActive;
+		let vm = this;
 
 		//Used since AM doesn't have a 'ui-sref-active' feature
 		setActive();

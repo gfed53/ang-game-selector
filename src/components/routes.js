@@ -6,7 +6,7 @@
 
 	function routerConfig($stateProvider, $urlRouterProvider){
 		$urlRouterProvider.otherwise('home')
-		const myRoot = {
+		const MY_ROOT = {
 			name: 'root',
 			url: '/',
 			views: {
@@ -25,7 +25,7 @@
 				}
 			}
 		},
-		home = {
+		HOME = {
 			name: 'home',
 			url: 'home',
 			parent: 'root',
@@ -37,7 +37,7 @@
 				}
 			}
 		},
-		questions = {
+		QUESTIONS = {
 			name: 'questions',
 			url: 'questions',
 			parent: 'root',
@@ -51,9 +51,9 @@
 		};
 
 		$stateProvider
-		.state(myRoot)
-		.state(home)
-		.state(questions)
+		.state(MY_ROOT)
+		.state(HOME)
+		.state(QUESTIONS)
 	}
 
 })();

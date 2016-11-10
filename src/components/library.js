@@ -11,23 +11,23 @@
 	//Our random selector.
 	function agsSelectRand(){
 		return function(){
-			let services = {
+			const SERVICES = {
 				get: get
 			}
 
 			function get(array){
 				if(!array || array.length === 0){
-					let error = {
-						error: true
+					const ERROR = {
+						ERROR: true
 					};
 
-					return error;
+					return ERROR;
 				} else {
 					return array[Math.floor(Math.random()*array.length)];
 				}
 			}
 
-			return services;
+			return SERVICES;
 
 		}
 	}
@@ -35,15 +35,15 @@
 	//Factory used to retrieve our list of games based on filters, before randomly selecting one - our end result
 	function agsIgdbAPI($http, $q){
 		return function(){
-			let services = {
+			const SERVICES = {
 				get: get
 			};
 
-			return services;
+			return SERVICES;
 
 			function get(after, before, platforms, genre, order, rating){
-				let url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
-				let params = {
+				const URL = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
+				const PARAMS = {
 					fields: '*',
 					limit: 50,
 					// 'filter[rating][gte]': 60, bug within API
@@ -51,27 +51,27 @@
 					'filter[first_release_date][lte]': before
 				};
 				if(platforms){
-					params['filter[release_dates.platform][eq]'] = platforms;
+					PARAMS['filter[release_dates.platform][eq]'] = platforms;
 				}
 				if(genre){
-					params['filter[genres][eq]'] = genre;
+					PARAMS['filter[genres][eq]'] = genre;
 				}
 				if(order){
-					// params['order'] = 'rating:desc';
-					params['order'] = 'popularity:desc';
+					// PARAMS['order'] = 'rating:desc';
+					PARAMS['order'] = 'popularity:desc';
 				}
 				if(rating){
-					params['filter[rating][gte]'] = 75;
+					PARAMS['filter[rating][gte]'] = 75;
 				}
-				let headers = {
+				const HEADERS = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',
 					'Accept': 'application/json'
 				};
 				return $http({
 					method: 'GET',
-					url: url,
-					params: params,
-					headers: headers
+					url: URL,
+					params: PARAMS,
+					headers: HEADERS
 				})
 				.then((results) => $q.when(results));
 			}
@@ -82,39 +82,39 @@
 	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (platforms aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)   
 	function agsIgdbPlatforms($http, $q, IGDB_PLATFORMS){
 		return function(){
-			let services = {
+			const SERVICES = {
 				get: get,
 				getAll: getAll,
 				getPlatformsJSON: getPlatformsJSON
 			};
 
-			let anyObj = {
+			const ANY_OBJ = {
 				'name': '--Any--'
 			};
 
-			return services;
+			return SERVICES;
 
 			function get(offset){
-				let url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/platforms/';
-				let params = {
+				const URL = 'https://igdbcom-internet-game-database-v1.p.mashape.com/platforms/';
+				const PARAMS = {
 					fields: '*',
 					limit: 50,
 					offset: offset
 				};
-				let headers = {
+				const HEADERS = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
 				};
 				return $http({
 					method: 'GET',
-					url: url,
-					params: params,
-					headers: headers
+					url: URL,
+					params: PARAMS,
+					headers: HEADERS
 				})
 				.then((results) => $q.when(results));
 			}
 
 			function getAll(){
-				let deferred = $q.defer();
+				const deferred = $q.defer();
 				let first,
 				merged;
 				get(0)
@@ -126,7 +126,7 @@
 				.then((first) => {
 					get(50)
 					.then((results) => {
-						let second = results.data;
+						const second = results.data;
 						merged = first.concat(second);
 						return merged;
 					})
@@ -134,9 +134,9 @@
 						get(100)
 						.then((results) => {
 							// console.log(results);
-							let third = results.data;
-							merged = merged.concat(third);
-							merged.push(anyObj);
+							const THIRD = results.data;
+							merged = merged.concat(THIRD);
+							merged.push(ANY_OBJ);
 							deferred.resolve(merged);
 						});
 					});
@@ -156,32 +156,32 @@
 	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (genres aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)
 	function agsIgdbGenres($http, $q, IGDB_GENRES){
 		return function(){
-			let services = {
+			const SERVICES = {
 				get: get,
 				getGenresJSON: getGenresJSON
 			};
 
-			let anyObj = {
+			const ANY_OBJ = {
 				'name': '--Any--'
 			};
 
-			return services;
+			return SERVICES;
 
 			function get(offset){
-				let url = 'https://igdbcom-internet-game-database-v1.p.mashape.com/genres/';
-				let params = {
+				const URL = 'https://igdbcom-internet-game-database-v1.p.mashape.com/genres/';
+				const PARAMS = {
 					fields: '*',
 					limit: 50,
 					offset: offset
 				};
-				let headers = {
+				const HEADERS = {
 					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
 				};
 				return $http({
 					method: 'GET',
-					url: url,
-					params: params,
-					headers: headers
+					url: URL,
+					params: PARAMS,
+					headers: HEADERS
 				})
 				.then((results) => $q.when(results));
 			}
@@ -191,7 +191,7 @@
 				return $http.get(IGDB_GENRES)
 				.then((results) => {
 					// console.log(results);
-					results.data.push(anyObj);
+					results.data.push(ANY_OBJ);
 					return $q.when(results);
 				});
 			}
@@ -203,16 +203,16 @@
 	//Auto scroll to answer section on submission
 	function agsScrollTo($location, $anchorScroll){
 		return function(scrollLocation){
-			let services = {
+			const SERVICES = {
 				scrollToElement: scrollToElement,
 				checkScrollBtnStatus: checkScrollBtnStatus
 			}
 
-			return services;
+			return SERVICES;
 
 			function scrollToElement(scrollLocation){
-				let element = document.getElementById(scrollLocation);
-				if(element){
+				const ELEMENT = document.getElementById(scrollLocation);
+				if(ELEMENT){
 					$location.hash(scrollLocation);
 					$anchorScroll();
 				} else {

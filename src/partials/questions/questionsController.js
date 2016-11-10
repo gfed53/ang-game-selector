@@ -4,22 +4,22 @@
 	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', QuestionsCtrl])
 
 	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo){
-		let vm = this;
-		vm.obj;
-		vm.set = set;
-		vm.submit = submit;
-		vm.submitIgdb = submitIgdb;
+		const VM = this;
+		VM.obj;
+		VM.set = set;
+		VM.submit = submit;
+		VM.submitIgdb = submitIgdb;
 		$location.url('/questions');
 
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
 		.then((results) => {
-			vm.genres = results.data;
+			VM.genres = results.data;
 		});
 
 		agsIgdbPlatforms().getPlatformsJSON()
 		.then((results) => {
-			vm.platforms = results.data;
+			VM.platforms = results.data;
 		});
 
 		function RangeChoice(after, before){
@@ -31,24 +31,24 @@
 		function set(_after_, _before_){
 			_after_ = (_after_ || '1971-01-01T04:00:00.000Z');
 			_before_ = (_before_ || Date.now());
-			let after = parseInt(moment(_after_).format('x'));
-			let before = parseInt(moment(_before_).format('x'));
+			const AFTER = parseInt(moment(_after_).format('x'));
+			const BEFORE = parseInt(moment(_before_).format('x'));
 
-			vm.rangeObj = new RangeChoice(after, before);
+			VM.rangeObj = new RangeChoice(AFTER, BEFORE);
 		}
 
 		function submitIgdb(after, before, platform, genre, order, rating){
-			vm.set(after, before);
-			vm.isLoading = true;
+			VM.set(after, before);
+			VM.isLoading = true;
 			agsScrollTo().scrollToElement('answer-container');
-			agsIgdbAPI().get(vm.rangeObj.after, vm.rangeObj.before, platform, genre, order, rating)
+			agsIgdbAPI().get(VM.rangeObj.after, VM.rangeObj.before, platform, genre, order, rating)
 			.then((results) => {
 				console.log(results);
-				vm.isLoading = false;
-				vm.igdbGames = results.data;
-				console.log(vm.igdbGames);			
-				vm.game = agsSelectRand().get(vm.igdbGames);
-				console.log(vm.game);
+				VM.isLoading = false;
+				VM.igdbGames = results.data;
+				console.log(VM.igdbGames);			
+				VM.game = agsSelectRand().get(VM.igdbGames);
+				console.log(VM.game);
 				agsScrollTo().scrollToElement('answer-scroll-point');
 			});
 		}

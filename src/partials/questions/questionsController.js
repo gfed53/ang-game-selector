@@ -9,6 +9,8 @@
 		VM.set = set;
 		VM.submit = submit;
 		VM.submitIgdb = submitIgdb;
+		//Limit by popularity checked on by default
+		VM.order = true;
 		$location.url('/questions');
 
 		//Getting IGDB Genres

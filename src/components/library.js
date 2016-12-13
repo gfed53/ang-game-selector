@@ -46,7 +46,7 @@
 				const PARAMS = {
 					fields: '*',
 					limit: 50,
-					// 'filter[rating][gte]': 60, bug within API
+					// 'filter[rating][gte]': 60, //bug within API
 					'filter[first_release_date][gte]': after,
 					'filter[first_release_date][lte]': before
 				};

@@ -53,13 +53,23 @@
 	
 	<div id="answer-container">
 		<md-content ng-if="questions.game.name && !questions.isLoading" id="answer-main">
-			<p>Let's play...</p>
-			<h2>{{ questions.game.name }}</h2>
-			<p>First Released: {{ questions.game.first_release_date | date : 'M/d/yy' }}</p>
+			<div class="game-header">
+				<p>Let's play...</p>
+				<h2>{{ questions.game.name }}</h2>
+				<p>First Released: {{ questions.game.first_release_date | date : 'M/d/yy' }}</p>
+			</div>
 			<!-- TODO: implement carousel showing array of images (for screenshot array) -->
-			<img class="game-image" ng-src="https://res.cloudinary.com/igdb/image/upload/t_cover_big/{{ questions.game.cover.cloudinary_id }}.jpg">
-			<p class="game-summary">{{ questions.game.summary }}</p>
-			<p>Find out more <a target="_blank" href="{{ questions.game.url }}">here</a>!</p>
+			<div class="game-sections-container" layout="row" layout-xs="column">
+				<div class="game-section" flex>
+					<img class="game-image" ng-src="https://res.cloudinary.com/igdb/image/upload/t_cover_big/{{ questions.game.cover.cloudinary_id }}.jpg">
+				</div>
+				<div class="game-section game-section-summary" flex>
+					<div>
+						<p class="game-summary">{{ questions.game.summary }}</p>
+						<p>Find out more <a target="_blank" href="{{ questions.game.url }}">here</a>!</p>
+					</div>
+				</div>
+			</div>
 		</md-content>
 		<md-content ng-if="questions.game.error">
 			<h2>Whoops!</h2>

@@ -1,9 +1,9 @@
 (function(){
 	angular
 	.module('myApp')
-	.controller('HomeCtrl', [HomeCtrl])
+	.controller('AboutCtrl', [AboutCtrl])
 
-	function HomeCtrl(){
+	function AboutCtrl(){
 		// console.log('Home');
 	}
 })();

@@ -25,21 +25,21 @@
 				}
 			}
 		},
-		HOME = {
-			name: 'home',
-			url: 'home',
+		ABOUT = {
+			name: 'about',
+			url: 'about',
 			parent: 'root',
 			views: {
 				'content@': {
-					templateUrl: './partials/home/home.html',
-					controller: 'HomeCtrl',
-					controllerAs: 'home'
+					templateUrl: './partials/about/about.html',
+					controller: 'AboutCtrl',
+					controllerAs: 'about'
 				}
 			}
 		},
-		QUESTIONS = {
-			name: 'questions',
-			url: 'questions',
+		HOME = {
+			name: 'home',
+			url: 'home',
 			parent: 'root',
 			views: {
 				'content@': {
@@ -52,8 +52,8 @@
 
 		$stateProvider
 		.state(MY_ROOT)
+		.state(ABOUT)
 		.state(HOME)
-		.state(QUESTIONS)
 	}
 
 })();

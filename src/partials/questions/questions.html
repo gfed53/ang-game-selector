@@ -1,47 +1,55 @@
 <section id="questions">
-	<h2>Select a range..</h2>
-	<p>Narrow down your result to a game from a certain time period.</p>
-	<div id="question-date-range">
-		<form layout="row" layout-xs="column" layout-align="center">
-			<md-input-container class="my-datepicker-container" flex-gt-xs="20" flex>
-				<label>From..</label>
-				<md-datepicker ng-model="questions.after"></md-datepicker>
+	<div class="question-container">
+		<h2>Select a range..</h2>
+		<p>Narrow down your result to a game from a certain time period.</p>
+		<div id="question-date-range">
+			<form layout="row" layout-xs="column" layout-align="center">
+				<md-input-container class="my-datepicker-container" flex-gt-xs="20" flex>
+					<label>From..</label>
+					<md-datepicker ng-model="questions.after"></md-datepicker>
+				</md-input-container>
+				<md-input-container class="my-datepicker-container" flex-gt-xs="20" flex>
+					<label>To..</label>
+					<md-datepicker ng-model="questions.before"></md-datepicker>
+				</md-input-container>
+			</form>
+		</div>
+	</div>
+	<div class="question-container">
+		<h2>Limit by platform..</h2>
+		<p>Retrieve only games that were released for certain systems.</p>
+		<div id="question-platform">
+			<md-input-container ng-if="questions.platforms">
+				<label>Platform</label>
+					<md-select ng-model="questions.platform" aria-label="...">
+	  					<md-option ng-value="platform" ng-repeat="platform in questions.platforms | orderBy:'name' track by platform.name">{{ platform.name }}</md-option>
+	  				</md-select>
 			</md-input-container>
-			<md-input-container class="my-datepicker-container" flex-gt-xs="20" flex>
-				<label>To..</label>
-				<md-datepicker ng-model="questions.before"></md-datepicker>
+			<p ng-if="!questions.platforms">Retrieving list of platforms..</p>
+		</div>
+	</div>
+	<div class="question-container">
+		<h2>Limit by genre..</h2>
+		<p>Narrow down your game of choice by your preferred type of game.</p>
+		<div id="question-genre">
+			<md-input-container ng-if="questions.genres">
+				<label>Genre</label>
+					<md-select ng-model="questions.genre" aria-label="...">
+	  					<md-option ng-value="genre" ng-repeat="genre in questions.genres | orderBy:'name' track by genre.name">{{ genre.name }}</md-option>
+	  				</md-select>
 			</md-input-container>
-		</form>
+			<p ng-if="!questions.platforms">Retrieving list of genres..</p>
+		</div>
 	</div>
-	<h2>Limit by platform..</h2>
-	<p>Retrieve only games that were released for certain systems.</p>
-	<div id="question-platform">
-		<md-input-container ng-if="questions.platforms">
-			<label>Platform</label>
-				<md-select ng-model="questions.platform" aria-label="...">
-  					<md-option ng-value="platform" ng-repeat="platform in questions.platforms | orderBy:'name' track by platform.name">{{ platform.name }}</md-option>
-  				</md-select>
-		</md-input-container>
-		<p ng-if="!questions.platforms">Retrieving list of platforms..</p>
-	</div>
-	<h2>Limit by genre..</h2>
-	<p>Narrow down your game of choice by your preferred type of game.</p>
-	<div id="question-genre">
-		<md-input-container ng-if="questions.genres">
-			<label>Genre</label>
-				<md-select ng-model="questions.genre" aria-label="...">
-  					<md-option ng-value="genre" ng-repeat="genre in questions.genres | orderBy:'name' track by genre.name">{{ genre.name }}</md-option>
-  				</md-select>
-		</md-input-container>
-		<p ng-if="!questions.platforms">Retrieving list of genres..</p>
-	</div>
-	<div id="question-extra">
-		<h2>Limit by popularity..</h2>
-		<p>Checking this off will limit the selection to the most popular games based on previous filters.</p>
-		<md-input-container>
-			<md-checkbox id="my-checkbox" aria-label="..." ng-model="questions.order">
-			</md-checkbox>
-		</md-input-container>
+	<div class="question-container">
+		<div id="question-extra">
+			<h2>Limit by popularity..</h2>
+			<p>Checking this off will limit the selection to the most popular games based on previous filters.</p>
+			<md-input-container>
+				<md-checkbox id="my-checkbox" aria-label="..." ng-model="questions.order">
+				</md-checkbox>
+			</md-input-container>
+		</div>
 	</div>
 	<div id="submit">
 		<form ng-submit="questions.submitIgdb(questions.after, questions.before, questions.platform.id, questions.genre.id, questions.order, questions.rating)">

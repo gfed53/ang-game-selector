@@ -3,10 +3,11 @@
 	.constant('IGDB_PLATFORMS', '../lib/platforms.json')
 	.constant('IGDB_GENRES', '../lib/genres.json')
 	.factory('agsSelectRand', agsSelectRand)
-	.factory('agsIgdbAPI', ['$http', '$q', agsIgdbAPI])
-	.factory('agsIgdbPlatforms', ['$http', '$q', 'IGDB_PLATFORMS', agsIgdbPlatforms])
-	.factory('agsIgdbGenres', ['$http', '$q', 'IGDB_GENRES', agsIgdbGenres])
+	.factory('agsIgdbAPI', ['$http', '$q', 'agsInitLogin', agsIgdbAPI])
+	.factory('agsIgdbPlatforms', ['$http', '$q', 'agsInitLogin', 'IGDB_PLATFORMS', agsIgdbPlatforms])
+	.factory('agsIgdbGenres', ['$http', '$q', 'agsInitLogin', 'IGDB_GENRES', agsIgdbGenres])
 	.factory('agsScrollTo', ['$location', '$anchorScroll', agsScrollTo])
+	.service('agsInitLogin', ['$q', '$state', agsInitLogin])
 
 	//Our random selector.
 	function agsSelectRand(){
@@ -33,7 +34,7 @@
 	}
 
 	//Factory used to retrieve our list of games based on filters, before randomly selecting one - our end result
-	function agsIgdbAPI($http, $q){
+	function agsIgdbAPI($http, $q, agsInitLogin){
 		return function(){
 			const SERVICES = {
 				get: get
@@ -64,7 +65,7 @@
 					PARAMS['filter[rating][gte]'] = 75;
 				}
 				const HEADERS = {
-					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA',
+					'X-Mashape-Key': agsInitLogin.apisObj.mashKey,
 					'Accept': 'application/json'
 				};
 				return $http({
@@ -79,8 +80,8 @@
 	}
 
 	//Retrieve our list of platforms from the IGDB API
-	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (platforms aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)   
-	function agsIgdbPlatforms($http, $q, IGDB_PLATFORMS){
+	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (platforms aren't likely to change that often) and also manipulate the array for the sake of the app (adding an 'Any' option with a null value)   
+	function agsIgdbPlatforms($http, $q, agsInitLogin, IGDB_PLATFORMS){
 		return function(){
 			const SERVICES = {
 				get: get,
@@ -102,7 +103,7 @@
 					offset: offset
 				};
 				const HEADERS = {
-					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
+					'X-Mashape-Key': agsInitLogin.apisObj.mashKey
 				};
 				return $http({
 					method: 'GET',
@@ -153,8 +154,8 @@
 	}
 
 	//Retrieve our list of genres from the IGDB API
-	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (genres aren't likely to change that often) and also manipulate the array for the sake of the app (adding an "Any" option with a null value)
-	function agsIgdbGenres($http, $q, IGDB_GENRES){
+	//Currently I'm retrieving data from a personalized JSON file so that I can limit unnecessary requests (genres aren't likely to change that often) and also manipulate the array for the sake of the app (adding an 'Any' option with a null value)
+	function agsIgdbGenres($http, $q, agsInitLogin, IGDB_GENRES){
 		return function(){
 			const SERVICES = {
 				get: get,
@@ -175,7 +176,7 @@
 					offset: offset
 				};
 				const HEADERS = {
-					'X-Mashape-Key': 'lJhGgYDDGImshvjLxvrUAo6kuFInp1qmiyVjsnwj9RvWKJTeJA'
+					'X-Mashape-Key': agsInitLogin.apisObj.mashKey
 				};
 				return $http({
 					method: 'GET',
@@ -231,18 +232,18 @@
 	}
 
 	function agsInitLogin($q, $state){
-		//Local Storage key name: "ah-log-info"
+		//Local Storage key name: 'ah-log-info'
 		this.check = check;
 		this.update = update;
 		this.apisObj = {
-			id: "New User"
+			id: 'New User'
 		};
 
 
 		function check(){
 			//Checking localStorage to see if user has an id with saved API keys
-			if(localStorage["ags-log-info"]){
-				let obj = JSON.parse(localStorage["ags-log-info"]);
+			if(localStorage['ags-log-info']){
+				let obj = JSON.parse(localStorage['ags-log-info']);
 				this.apisObj = obj;
 				return false;
 			} else {
@@ -251,8 +252,8 @@
 		}
 
 		function update(obj){
-			localStorage.setItem("ags-log-info", JSON.stringify(obj));
-			this.apisObj = result;
+			localStorage.setItem('ags-log-info', JSON.stringify(obj));
+			this.apisObj = obj;
 			$state.reload();
 		}
 	}

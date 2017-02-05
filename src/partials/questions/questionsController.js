@@ -1,17 +1,22 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', 'agsInitLogin', QuestionsCtrl])
 
-	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo){
+	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo, agsInitLogin){
 		const VM = this;
 		VM.obj;
 		VM.set = set;
-		VM.submit = submit;
+		// VM.submit = submit;
 		VM.submitIgdb = submitIgdb;
 		//Limit by popularity checked on by default
 		VM.order = true;
 		$location.url('/questions');
+
+		VM.needLogin = agsInitLogin.check();
+		VM.submitLogInfo = agsInitLogin.update;
+		VM.resetLogInfo = resetLogInfo;
+		VM.userName = agsInitLogin.apisObj.id;
 
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
@@ -53,6 +58,10 @@
 				console.log(VM.game);
 				agsScrollTo().scrollToElement('answer-scroll-point');
 			});
+		}
+
+		function resetLogInfo(){
+			VM.needLogin = true;
 		}
 	}
 })();

@@ -8,6 +8,7 @@
 	.factory('agsIgdbGenres', ['$http', '$q', 'agsInitLogin', 'IGDB_GENRES', agsIgdbGenres])
 	.factory('agsScrollTo', ['$location', '$anchorScroll', agsScrollTo])
 	.service('agsInitLogin', ['$q', '$state', agsInitLogin])
+	.service('agsResult', [agsResult])
 
 	//Our random selector.
 	function agsSelectRand(){
@@ -255,6 +256,20 @@
 			localStorage.setItem('ags-log-info', JSON.stringify(obj));
 			this.apisObj = obj;
 			$state.reload();
+		}
+	}
+
+	function agsResult(){
+		var result = null;
+		this.get = get;
+		this.set = set;
+
+		function get(){
+			return result;
+		}
+
+		function set(_result){
+			result = _result;
 		}
 	}
 

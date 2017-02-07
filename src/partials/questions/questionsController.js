@@ -1,13 +1,12 @@
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', 'agsInitLogin', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', 'agsInitLogin', 'agsResult', QuestionsCtrl])
 
-	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo, agsInitLogin){
+	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo, agsInitLogin, agsResult){
 		const VM = this;
 		VM.obj;
 		VM.set = set;
-		// VM.submit = submit;
 		VM.submitIgdb = submitIgdb;
 		//Limit by popularity checked on by default
 		VM.order = true;
@@ -17,6 +16,10 @@
 		VM.submitLogInfo = agsInitLogin.update;
 		VM.resetLogInfo = resetLogInfo;
 		VM.userName = agsInitLogin.apisObj.id;
+
+		//Grabbing potentially-stored game
+		VM.game = agsResult.get();
+		console.log(VM.game);
 
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
@@ -56,6 +59,7 @@
 				console.log(VM.igdbGames);			
 				VM.game = agsSelectRand().get(VM.igdbGames);
 				console.log(VM.game);
+				agsResult.set(VM.game);
 				agsScrollTo().scrollToElement('answer-scroll-point');
 			});
 		}

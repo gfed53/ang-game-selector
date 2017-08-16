@@ -1,12 +1,12 @@
 {
-  "name": "ang-empty",
+  "name": "ang-game-selector",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "What to Play? Using search parameters, stumble on a random game!",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server"
   },
-  "author": "",
+  "author": "Gregory Federico",
   "license": "ISC",
   "devDependencies": {
     "angular": "^1.5.7",
@@ -25,5 +25,9 @@
     "gulp-uglify": "^2.0.0",
     "gulp-usemin": "^0.3.24",
     "jshint": "^2.9.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
   }
 }

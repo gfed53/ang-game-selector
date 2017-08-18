@@ -1,21 +1,23 @@
+// jshint esversion: 6
+
 (function(){
 	angular.
 	module('myApp')
-	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', 'agsInitLogin', 'agsResult', QuestionsCtrl])
+	.controller('QuestionsCtrl', ['$scope', '$location', '$timeout', 'agsSelectRand', 'agsIgdbAPI', 'agsIgdbPlatforms', 'agsIgdbGenres', 'agsScrollTo', 'agsInitLogin', 'agsResult', QuestionsCtrl]);
 
 	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo, agsInitLogin, agsResult){
 		const VM = this;
-		VM.obj;
+		// VM.obj;
 		VM.set = set;
 		VM.submitIgdb = submitIgdb;
 		//Limit by popularity checked on by default
 		VM.order = true;
 		$location.url('/questions');
 
-		VM.needLogin = agsInitLogin.check();
-		VM.submitLogInfo = agsInitLogin.update;
-		VM.resetLogInfo = resetLogInfo;
-		VM.userName = agsInitLogin.apisObj.id;
+		// VM.needLogin = agsInitLogin.check();
+		// VM.submitLogInfo = agsInitLogin.update;
+		// VM.resetLogInfo = resetLogInfo;
+		// VM.userName = agsInitLogin.apisObj.id;
 
 		//Grabbing potentially-stored game
 		VM.game = agsResult.get();
@@ -35,7 +37,7 @@
 		function RangeChoice(after, before){
 			this.after = after;
 			this.before = before;
-		};
+		}
 
 		//Adjust the date syntax through an object constructor
 		function set(_after_, _before_){

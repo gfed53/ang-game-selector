@@ -1,3 +1,5 @@
+// jshint esversion: 6
+
 (function(){
 	angular.module('myApp')
 	.constant('IGDB_PLATFORMS', '../lib/platforms.json')
@@ -7,15 +9,15 @@
 	.factory('agsIgdbPlatforms', ['$http', '$q', 'agsInitLogin', 'IGDB_PLATFORMS', agsIgdbPlatforms])
 	.factory('agsIgdbGenres', ['$http', '$q', 'agsInitLogin', 'IGDB_GENRES', agsIgdbGenres])
 	.factory('agsScrollTo', ['$location', '$anchorScroll', agsScrollTo])
-	.service('agsInitLogin', ['$q', '$state', agsInitLogin])
-	.service('agsResult', [agsResult])
+	.service('agsInitLogin', ['$http', '$q', '$state', agsInitLogin])
+	.service('agsResult', [agsResult]);
 
 	//Our random selector.
 	function agsSelectRand(){
 		return function(){
 			const SERVICES = {
 				get: get
-			}
+			};
 
 			function get(array){
 				if(!array || array.length === 0){
@@ -31,7 +33,7 @@
 
 			return SERVICES;
 
-		}
+		};
 	}
 
 	//Factory used to retrieve our list of games based on filters, before randomly selecting one - our end result
@@ -44,7 +46,7 @@
 			return SERVICES;
 
 			function get(after, before, platforms, genre, order, rating){
-				const URL = 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/';
+				const URL = 'https://api-2445582011268.apicast.io/games/';
 				const PARAMS = {
 					fields: '*',
 					limit: 50,
@@ -66,18 +68,25 @@
 					PARAMS['filter[rating][gte]'] = 75;
 				}
 				const HEADERS = {
-					'X-Mashape-Key': agsInitLogin.apisObj.mashKey,
+					'user-key': agsInitLogin.apisObj.igdbKey,
 					'Accept': 'application/json'
 				};
+
+				const MOCK_PARAMS = {
+					fields: '*',
+					limit: 50
+				};
+
+				console.log('Headers',HEADERS);
 				return $http({
 					method: 'GET',
 					url: URL,
-					params: PARAMS,
+					params: MOCK_PARAMS,
 					headers: HEADERS
 				})
-				.then((results) => $q.when(results));
+				.then((results) => $q.when(results), (err) => { console.log(err); });
 			}
-		}
+		};
 	}
 
 	//Retrieve our list of platforms from the IGDB API
@@ -97,14 +106,15 @@
 			return SERVICES;
 
 			function get(offset){
-				const URL = 'https://igdbcom-internet-game-database-v1.p.mashape.com/platforms/';
+				const URL = 'https://api-2445582011268.apicast.io/platforms/';
 				const PARAMS = {
 					fields: '*',
 					limit: 50,
 					offset: offset
 				};
 				const HEADERS = {
-					'X-Mashape-Key': agsInitLogin.apisObj.mashKey
+					'user-key': agsInitLogin.apisObj.igdbKey,
+					'Accept': 'application/json'
 				};
 				return $http({
 					method: 'GET',
@@ -151,7 +161,7 @@
 				return $http.get(IGDB_PLATFORMS)
 				.then((results) => $q.when(results));
 			}
-		}
+		};
 	}
 
 	//Retrieve our list of genres from the IGDB API
@@ -170,14 +180,15 @@
 			return SERVICES;
 
 			function get(offset){
-				const URL = 'https://igdbcom-internet-game-database-v1.p.mashape.com/genres/';
+				const URL = 'https://api-2445582011268.apicast.io/genres/';
 				const PARAMS = {
 					fields: '*',
 					limit: 50,
 					offset: offset
 				};
 				const HEADERS = {
-					'X-Mashape-Key': agsInitLogin.apisObj.mashKey
+					'user-key': agsInitLogin.apisObj.igdbKey,
+					'Accept': 'application/json'
 				};
 				return $http({
 					method: 'GET',
@@ -199,7 +210,7 @@
 			}
 
 
-		}
+		};
 	}
 
 	//Auto scroll to answer section on submission
@@ -208,7 +219,7 @@
 			const SERVICES = {
 				scrollToElement: scrollToElement,
 				checkScrollBtnStatus: checkScrollBtnStatus
-			}
+			};
 
 			return SERVICES;
 
@@ -229,33 +240,51 @@
 					return false;
 				}
 			}	
-		}
+		};
 	}
 
-	function agsInitLogin($q, $state){
-		//Local Storage key name: 'ah-log-info'
-		this.check = check;
-		this.update = update;
-		this.apisObj = {
-			id: 'New User'
-		};
+	function agsInitLogin($http, $q, $state){
+		// this.check = check;
+		// this.update = update;
+		this.init = init;
+		// this.apisObj = {
+		// 	id: 'New User'
+		// };
 
 
-		function check(){
-			//Checking localStorage to see if user has an id with saved API keys
-			if(localStorage['ags-log-info']){
-				let obj = JSON.parse(localStorage['ags-log-info']);
-				this.apisObj = obj;
-				return false;
-			} else {
-				return true;
-			}
+		// function check(){
+		// 	//Checking localStorage to see if user has an id with saved API keys
+		// 	if(localStorage['ags-log-info']){
+		// 		let obj = JSON.parse(localStorage['ags-log-info']);
+		// 		this.apisObj = obj;
+		// 		return false;
+		// 	} else {
+		// 		return true;
+		// 	}
+		// }
+
+		// function update(obj){
+		// 	localStorage.setItem('ags-log-info', JSON.stringify(obj));
+		// 	this.apisObj = obj;
+		// 	$state.reload();
+		// }
+
+		function init(){
+			let deferred = $q.defer();
+			initKeys()
+			.then((data)=> {
+				this.apisObj = data;
+				deferred.resolve();
+			});
+
+			return deferred.promise;
 		}
 
-		function update(obj){
-			localStorage.setItem('ags-log-info', JSON.stringify(obj));
-			this.apisObj = obj;
-			$state.reload();
+		function initKeys(){
+			return $http.get('/access')
+					.then((res) => {
+						return res.data;
+					});
 		}
 	}
 

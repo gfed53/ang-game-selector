@@ -240,30 +240,7 @@
 
 	// Remove this...
 	function agsInitLogin($http, $q, $state){
-		// this.check = check;
-		// this.update = update;
 		this.init = init;
-		// this.apisObj = {
-		// 	id: 'New User'
-		// };
-
-
-		// function check(){
-		// 	//Checking localStorage to see if user has an id with saved API keys
-		// 	if(localStorage['ags-log-info']){
-		// 		let obj = JSON.parse(localStorage['ags-log-info']);
-		// 		this.apisObj = obj;
-		// 		return false;
-		// 	} else {
-		// 		return true;
-		// 	}
-		// }
-
-		// function update(obj){
-		// 	localStorage.setItem('ags-log-info', JSON.stringify(obj));
-		// 	this.apisObj = obj;
-		// 	$state.reload();
-		// }
 
 		function init(){
 			let deferred = $q.defer();

@@ -10,13 +10,5 @@
 		$mdThemingProvider.theme('default')
 			.primaryPalette('blue')
     		.accentPalette('deep-orange');
-	}])
-
-	.run(['agsInitLogin', (agsInitLogin)=>{
-		agsInitLogin.init()
-			.then(()=>{
-				//Do nothing
-				console.log('apisObj',agsInitLogin.apisObj);
-			});
 	}]);
 })();

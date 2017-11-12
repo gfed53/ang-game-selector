@@ -7,21 +7,14 @@
 
 	function QuestionsCtrl($scope, $location, $timeout, agsSelectRand, agsIgdbAPI, agsIgdbPlatforms, agsIgdbGenres, agsScrollTo, agsInitLogin, agsResult){
 		const VM = this;
-		// VM.obj;
 		VM.set = set;
 		VM.submitIgdb = submitIgdb;
 		//Limit by popularity checked on by default
 		VM.order = true;
 		$location.url('/questions');
 
-		// VM.needLogin = agsInitLogin.check();
-		// VM.submitLogInfo = agsInitLogin.update;
-		// VM.resetLogInfo = resetLogInfo;
-		// VM.userName = agsInitLogin.apisObj.id;
-
 		//Grabbing potentially-stored game
 		VM.game = agsResult.get();
-		console.log(VM.game);
 
 		//Getting IGDB Genres
 		agsIgdbGenres().getGenresJSON()
@@ -55,12 +48,9 @@
 			agsScrollTo().scrollToElement('answer-container');
 			agsIgdbAPI().get(VM.rangeObj.after, VM.rangeObj.before, platform, genre, order, rating)
 			.then((results) => {
-				console.log(results);
 				VM.isLoading = false;
-				VM.igdbGames = results.data.body;
-				console.log(VM.igdbGames);			
+				VM.igdbGames = results.data.body;		
 				VM.game = agsSelectRand().get(VM.igdbGames);
-				console.log(VM.game);
 				agsResult.set(VM.game);
 				agsScrollTo().scrollToElement('answer-scroll-point');
 			});

@@ -9,22 +9,15 @@ const config = require('../config');
 
 const client = igdb(config.KEYS.igdbKey);
 
-// Make regular IGDB search with given query
-// Body would contain query string, q.
+// Make IGDB search with given query
 router.post('/find-games', function(req, res) {
-    console.log('req.body',req.body);
 
-    //Test for now
     client.games(req.body).then(response => {
         // response.body contains the parsed JSON response to this query
-        console.log('in backend, response:',response);
         res.json(response);
     }).catch(error => {
         throw error;
     });
-
-    // res.json({test: 'okay'});
-    
     
 });
 

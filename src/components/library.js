@@ -238,6 +238,7 @@
 		};
 	}
 
+	// Remove this...
 	function agsInitLogin($http, $q, $state){
 		// this.check = check;
 		// this.update = update;

@@ -14,6 +14,8 @@ app.use('/igdb-api', igdb_api);
 // ******* You can toggle between serving 'src' and 'dist' directories if need be.
 app.use(express.static('src'));
 
+
+// Remove this...
 app.get('/access', function(req, res){
     res.json(config.KEYS);
 });

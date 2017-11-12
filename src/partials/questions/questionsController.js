@@ -57,7 +57,7 @@
 			.then((results) => {
 				console.log(results);
 				VM.isLoading = false;
-				VM.igdbGames = results.data;
+				VM.igdbGames = results.data.body;
 				console.log(VM.igdbGames);			
 				VM.game = agsSelectRand().get(VM.igdbGames);
 				console.log(VM.game);

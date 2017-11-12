@@ -9,9 +9,6 @@
   "author": "Gregory Federico",
   "license": "ISC",
   "devDependencies": {
-    "angular": "^1.5.7",
-    "angular-animate": "^1.5.7",
-    "angular-ui-router": "^0.3.1",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.13",
@@ -27,7 +24,9 @@
     "jshint": "^2.9.3"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "^1.17.2",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "igdb-api-node": "^3.0.2"
   }
 }

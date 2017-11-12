@@ -1,12 +1,15 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('./server/config');
+var igdb_api = require('./server/api/igdb-api');
 
 var app = express();
 
 //****** Middleware
 
 app.use(bodyParser.json());
+app.use('igdb-api', igdb_api);
+
 
 // ******* You can toggle between serving 'src' and 'dist' directories if need be.
 app.use(express.static('src'));

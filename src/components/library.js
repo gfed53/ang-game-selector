@@ -67,24 +67,21 @@
 				if(rating){
 					PARAMS['filter[rating][gte]'] = 75;
 				}
-				const HEADERS = {
-					'user-key': agsInitLogin.apisObj.igdbKey,
-					'Accept': 'application/json'
-				};
+				// const HEADERS = {
+				// 	'user-key': agsInitLogin.apisObj.igdbKey,
+				// 	'Accept': 'application/json'
+				// };
 
-				const MOCK_PARAMS = {
-					fields: '*',
-					limit: 50
-				};
+				// const MOCK_PARAMS = {
+				// 	fields: '*',
+				// 	limit: 50
+				// };
 
-				console.log('Headers',HEADERS);
-				return $http({
-					method: 'GET',
-					url: URL,
-					params: MOCK_PARAMS,
-					headers: HEADERS
-				})
-				.then((results) => $q.when(results), (err) => { console.log(err); });
+				// console.log('Headers',HEADERS);
+				return $http.post('/igdb-api/find-games', {
+									params: PARAMS
+								})
+								.then((results) => $q.when(results), (err) => { console.log(err); });
 			}
 		};
 	}

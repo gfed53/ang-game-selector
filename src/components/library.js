@@ -78,10 +78,8 @@
 				// };
 
 				// console.log('Headers',HEADERS);
-				return $http.post('/igdb-api/find-games', {
-									params: PARAMS
-								})
-								.then((results) => $q.when(results), (err) => { console.log(err); });
+				return $http.post('/igdb-api/find-games', PARAMS)
+						.then((results) => $q.when(results), (err) => { console.log(err); });
 			}
 		};
 	}

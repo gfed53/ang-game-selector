@@ -1,5 +1,5 @@
 exports.PORT = process.env.PORT || 8080;
 
 exports.KEYS = {
-	igdbKey: 'XXXX'
+	igdbKey: 'XXX'
 };
